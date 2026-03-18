@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OT Rooms | MediSync Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="admin-layout">
+        <header class="top-bar-premium">
+            <div class="nav-brand">
+                <div class="logo-icon"><i class="fa-solid fa-hospital-user text-white"></i></div>
+                <span class="logo-text">MEDISYNC ADMIN</span>
+            </div>
+            
+            <nav class="header-nav-group">
+                <a href="admin-dashboard.html" class="header-link"><i class="fa-solid fa-gauge"></i> Dashboard</a>
+                <a href="admin-doctors.html" class="header-link"><i class="fa-solid fa-user-doctor"></i> Doctors</a>
+                <a href="admin-patients.html" class="header-link"><i class="fa-solid fa-hospital-user"></i> Patients</a>
+                <a href="admin-scheduler.html" class="header-link"><i class="fa-solid fa-calendar-plus"></i> Scheduler</a>
+                <a href="admin-rooms.html" class="header-link active"><i class="fa-solid fa-door-open"></i> OT Status</a>
+                <a href="admin-analytics.html" class="header-link"><i class="fa-solid fa-chart-line"></i> Analytics</a>
+            </nav>
+
+            <div class="portal-switcher">
+                <button class="portal-switch-btn">
+                    <i class="fa-solid fa-shuffle"></i> SWITCH PORTAL
+                </button>
+                <div class="portal-dropdown">
+                    <a href="admin-dashboard.html" class="portal-option active">
+                        <i class="fa-solid fa-user-shield"></i>
+                        <div>
+                            <p style="font-weight: 800; font-size: 0.9rem;">Admin Command</p>
+                            <p style="font-size: 0.7rem; color: var(--text-secondary);">Enterprise Management</p>
+                        </div>
+                    </a>
+                    <a href="user-dashboard.html" class="portal-option">
+                        <i class="fa-solid fa-user-doctor"></i>
+                        <div>
+                            <p style="font-weight: 800; font-size: 0.9rem;">Staff Portal</p>
+                            <p style="font-size: 0.7rem; color: var(--text-secondary);">Clinical Workspace</p>
+                        </div>
+                    </a>
+                    <a href="patient-dashboard.html" class="portal-option">
+                        <i class="fa-solid fa-hospital-user"></i>
+                        <div>
+                            <p style="font-weight: 800; font-size: 0.9rem;">Patient Portal</p>
+                            <p style="font-size: 0.7rem; color: var(--text-secondary);">Recovery Dashboard</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="user-profile">
+                <div class="admin-info" style="text-align: right; margin-right: 15px;">
+                    <span class="admin-name">Master Command</span>
+                    <span class="admin-role">Institutional Admin</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1559839734-2b71f1536783?auto=format&fit=crop&w=150&h=150&q=80" class="admin-avatar">
+                <a href="../index.html" class="btn-icon" style="margin-left: 15px; border: none; background: var(--bg-base); color: var(--danger);"><i class="fa-solid fa-right-from-bracket"></i></a>
+            </div>
+        </header>
+
+        <main class="main-wrap">
+            <header class="page-header" style="margin-bottom: 3rem;">
+                <div>
+                    <h1 style="font-size: 2.5rem; letter-spacing: -1.5px; color: var(--text-primary);">Surgical Suite Monitoring</h1>
+                    <p style="color: var(--text-secondary); font-size: 1.1rem; font-weight: 500;">Real-time environmental and occupancy tracking for internal OTs</p>
+                </div>
+                <button class="btn-primary" onclick="showToast('Refreshing Telemetry...', 'info')">
+                    <i class="fa-solid fa-sync"></i> REFRESH TELEMETRY
+                </button>
+            </header>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 2.5rem; margin-bottom: 4rem;">
+                <!-- Room Cards -->
+                <div class="card-premium" style="padding: 2rem;">
+                    <div class="flex-between" style="margin-bottom: 2rem;">
+                        <div>
+                            <h3 style="font-size: 1.25rem;">OT-04-A</h3>
+                            <p style="font-size: 0.75rem; color: var(--primary); font-weight: 800;">NEURO / MODULAR</p>
+                        </div>
+                        <span class="status-badge occupied" style="background: hsla(0, 84%, 60%, 0.1); color: var(--danger);">OCCUPIED</span>
+                    </div>
+                    <div style="padding: 1.5rem; background: var(--bg-base); border-radius: 15px; margin-bottom: 2rem;">
+                        <div class="flex-between" style="margin-bottom: 10px;">
+                            <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">TEMPERATURE</span>
+                            <span style="font-weight: 800; color: var(--success);">21.4°C</span>
+                        </div>
+                        <div class="flex-between">
+                            <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">AIR PURITY</span>
+                            <span style="font-weight: 800; color: var(--primary);">99.2%</span>
+                        </div>
+                    </div>
+                    <button class="btn-white" style="width: 100%; justify-content: center;" onclick="location.href='admin-dashboard.html'">MONITOR FEED</button>
+                </div>
+
+                <div class="card-premium" style="padding: 2rem;">
+                    <div class="flex-between" style="margin-bottom: 2rem;">
+                        <div>
+                            <h3 style="font-size: 1.25rem;">OT-01-B</h3>
+                            <p style="font-size: 0.75rem; color: var(--primary); font-weight: 800;">CARDIAC SPECIALIZED</p>
+                        </div>
+                        <span class="status-badge scheduled">AVAILABLE</span>
+                    </div>
+                    <div style="padding: 1.5rem; background: var(--bg-base); border-radius: 15px; margin-bottom: 2rem;">
+                        <div class="flex-between" style="margin-bottom: 10px;">
+                            <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">TEMPERATURE</span>
+                            <span style="font-weight: 800; color: var(--success);">20.1°C</span>
+                        </div>
+                        <div class="flex-between">
+                            <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">HEPA FLOW</span>
+                            <span style="font-weight: 800; color: var(--primary);">98.8%</span>
+                        </div>
+                    </div>
+                    <button class="btn-primary" style="width: 100%; justify-content: center;" onclick="location.href='admin-scheduler.html'">BOOK SUITE</button>
+                </div>
+            </div>
+
+            <section class="card-premium">
+                <div class="card-header-premium">
+                    <h3>Suite Inventory & Maintenance</h3>
+                </div>
+                <div class="table-container">
+                    <table class="data-table-premium">
+                        <thead>
+                            <tr>
+                                <th>Unit ID</th>
+                                <th>Specialization</th>
+                                <th>Floor / Wing</th>
+                                <th>Status</th>
+                                <th>Maintenance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="ot-badge">OT-04-A</span></td>
+                                <td>Neurosurgery</td>
+                                <td>L2, East Wing</td>
+                                <td><span class="status-badge occupied">OCCUPIED</span></td>
+                                <td><span class="badge badge-success">READY</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="ot-badge">OT-01-B</span></td>
+                                <td>Cardiac</td>
+                                <td>L3, North Wing</td>
+                                <td><span class="status-badge scheduled">AVAILABLE</span></td>
+                                <td><span class="badge badge-success">READY</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="../js/main.js" type="module"></script>
+</body>
+</html>

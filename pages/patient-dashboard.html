@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Dashboard | MediSync</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Unified Top Header for Patient Portfolio -->
+        <header class="top-bar-premium">
+            <div class="nav-brand">
+                <div class="logo-icon" style="background: var(--primary);"><i class="fa-solid fa-heart-pulse text-white"></i></div>
+                <span class="logo-text">PATIENT PORTAL</span>
+            </div>
+            
+            <nav class="header-nav-group">
+                <a href="patient-dashboard.html" class="header-link active"><i class="fa-solid fa-gauge"></i> My Dashboard</a>
+                <a href="patient-surgeries.html" class="header-link"><i class="fa-solid fa-scalpel"></i> Surgery Info</a>
+                <a href="patient-doctors.html" class="header-link"><i class="fa-solid fa-user-doctor"></i> Specialists</a>
+                <a href="patient-reports.html" class="header-link"><i class="fa-solid fa-file-medical"></i> My Reports</a>
+            </nav>
+
+
+            <div class="user-profile">
+                <div class="admin-info" style="text-align: right; margin-right: 15px;">
+                    <span class="admin-name">Robert Wilson</span>
+                    <span class="admin-role">Institutional Patient</span>
+                </div>
+                <div class="p-initials" style="width: 45px; height: 45px; font-size: 1rem; background: var(--primary-soft); color: var(--primary); border: 2px solid var(--primary);">RW</div>
+                <a href="../index.html" class="btn-icon" style="margin-left: 15px; border: none; background: var(--bg-base); color: var(--danger);"><i class="fa-solid fa-right-from-bracket"></i></a>
+            </div>
+        </header>
+
+        <main class="main-wrap">
+            <section class="card-premium" style="background: linear-gradient(135deg, var(--primary) 0%, #1e40af 100%); color: white; border: none; padding: 4rem; border-radius: 30px; margin-bottom: 3rem; position: relative; overflow: hidden; box-shadow: 0 20px 40px var(--primary-glow);">
+                <div style="position: relative; z-index: 2;">
+                    <h1 style="font-size: 3.5rem; font-weight: 900; letter-spacing: -2px; margin-bottom: 1rem; color: white;">Recovery Dashboard</h1>
+                    <p style="font-size: 1.25rem; opacity: 0.9; font-weight: 500;">Welcome back, Robert. Your personalized clinical roadmap is ready.</p>
+                    <div style="margin-top: 2.5rem; display: flex; gap: 1rem;">
+                        <button class="btn-primary" style="background: white; color: var(--primary); padding: 15px 30px; border-radius: 12px; font-weight: 800;" onclick="window.location.href='patient-surgeries.html'">
+                            <i class="fa-solid fa-calendar-check" style="margin-right: 10px;"></i> VIEW SURGERY STATUS
+                        </button>
+                    </div>
+                </div>
+                <i class="fa-solid fa-hospital-user" style="position: absolute; right: 5%; bottom: -20px; font-size: 20rem; opacity: 0.1; pointer-events: none; color: white;"></i>
+            </section>
+
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 3rem;">
+                <!-- Surgery Info Card -->
+                <section class="card-premium" style="padding: 0; overflow: hidden;">
+                    <div class="card-header-premium" style="padding: 2.5rem; border-bottom: 1px solid var(--border);">
+                        <div class="header-left">
+                            <h3>Upcoming Surgery Progression</h3>
+                            <p>Real-time updates on your scheduled institutional allocation</p>
+                        </div>
+                    </div>
+                    
+                    <div id="activeSurgeryCard" style="padding: 3rem;">
+                        <div class="flex-between" style="margin-bottom: 3rem;">
+                            <div style="display: flex; gap: 25px; align-items: center;">
+                                <div style="width: 80px; height: 80px; background: var(--bg-base); border-radius: 20px; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 2.5rem; border: 1px solid var(--border);">
+                                    <i class="fa-solid fa-stethoscope"></i>
+                                </div>
+                                <div>
+                                    <h2 style="font-size: 1.75rem; margin-bottom: 8px; font-weight: 800;" id="surgeryType">Cardiac Bypass Surgery</h2>
+                                    <p style="color: var(--text-secondary); font-weight: 700;">STAGING STATUS: <span class="badge badge-success">SCHEDULED</span></p>
+                                </div>
+                            </div>
+                            <div style="text-align: right;">
+                                <p style="font-size: 0.8rem; font-weight: 900; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;">ALLOCATION DATE</p>
+                                <h3 id="surgeryDate" style="color: var(--primary); font-size: 1.5rem; font-weight: 900;">March 18, 2026</h3>
+                            </div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem;">
+                            <div style="padding: 2rem; background: var(--bg-base); border-radius: 20px; border: 1px solid var(--border);">
+                                <p style="font-size: 0.8rem; font-weight: 900; color: var(--text-muted); margin-bottom: 12px; letter-spacing: 0.5px;">LEAD SPECIALIST</p>
+                                <p style="font-weight: 800; color: var(--text-primary); font-size: 1.1rem;" id="surgeonName">Dr. Sarah Chen</p>
+                            </div>
+                            <div style="padding: 2rem; background: var(--bg-base); border-radius: 20px; border: 1px solid var(--border);">
+                                <p style="font-size: 0.8rem; font-weight: 900; color: var(--text-muted); margin-bottom: 12px; letter-spacing: 0.5px;">OT SUITE UNIT</p>
+                                <p style="font-weight: 800; color: var(--text-primary); font-size: 1.1rem;" id="theaterId">OT-04-A (Neuro)</p>
+                            </div>
+                            <div style="padding: 2rem; background: var(--bg-base); border-radius: 20px; border: 1px solid var(--border);">
+                                <p style="font-size: 0.8rem; font-weight: 900; color: var(--text-muted); margin-bottom: 12px; letter-spacing: 0.5px;">PRECISION TIME</p>
+                                <p style="font-weight: 800; color: var(--text-primary); font-size: 1.1rem;" id="surgeryTime">08:30 AM (ET)</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Resource Quick Access -->
+                <div style="display: flex; flex-direction: column; gap: 2.5rem;">
+                    <div class="card-premium">
+                        <div class="card-header-premium">
+                            <h3>Patient Resources</h3>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 15px; padding: 1rem 0;">
+                            <a href="patient-reports.html" class="header-link" style="background: var(--bg-base); border-radius: 12px; padding: 15px; color: var(--text-primary); justify-content: flex-start;  border: 1px solid var(--border);">
+                                <i class="fa-solid fa-file-pdf" style="color: var(--danger); margin-right: 15px;"></i> Pre-Op Clinical Guidelines
+                            </a>
+                            <a href="patient-doctors.html" class="header-link" style="background: var(--bg-base); border-radius: 12px; padding: 15px; color: var(--text-primary); justify-content: flex-start;  border: 1px solid var(--border);">
+                                <i class="fa-solid fa-comment-medical" style="color: var(--success); margin-right: 15px;"></i> Contact Specialist Team
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="card-premium" style="background: var(--bg-base); border: 2px dashed var(--border);">
+                        <div style="text-align: center; padding: 2rem;">
+                            <i class="fa-solid fa-headset" style="font-size: 3.5rem; color: var(--primary); margin-bottom: 1.5rem; opacity: 0.4;"></i>
+                            <h4 style="font-weight: 900; margin-bottom: 10px; font-size: 1.25rem;">Concierge Support</h4>
+                            <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 2rem; font-weight: 500;">Direct line to institutional patient care coordinators.</p>
+                            <button class="btn-primary" style="width: 100%; justify-content: center; height: 55px; border-radius: 12px;" onclick="showToast('Connecting to Patient Concierge...', 'info')">INITIATE SUPPORT CALL</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/main.js" type="module"></script>
+    <script type="module">
+        import { streamSurgeries } from '../js/firebase-service.js';
+        import { showToast } from '../js/main.js';
+        window.showToast = showToast;
+        
+        // Dynamic Data Integration
+        streamSurgeries((surgeries) => {
+            const mySurgery = surgeries.find(s => s.patientName?.toLowerCase().includes('robert')) || surgeries[0];
+            if(mySurgery) {
+                document.getElementById('surgeryType').innerText = mySurgery.procedure || mySurgery.type || 'Surgical Procedure';
+                document.getElementById('surgeryDate').innerText = mySurgery.surgeryDate || 'Pending Allocation';
+                document.getElementById('surgeonName').innerText = 'Dr. ' + (mySurgery.leadSurgeon || 'Assigned Specialist');
+                document.getElementById('theaterId').innerText = mySurgery.otId || 'Suite Pending';
+                document.getElementById('surgeryTime').innerText = mySurgery.surgeryTime || 'Time TBD';
+            }
+        });
+    </script>
+</body>
+</html>

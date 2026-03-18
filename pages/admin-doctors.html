@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Doctors | MediSync Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="admin-layout">
+        <header class="top-bar-premium">
+            <div class="nav-brand">
+                <div class="logo-icon"><i class="fa-solid fa-hospital-user text-white"></i></div>
+                <span class="logo-text">MEDISYNC ADMIN</span>
+            </div>
+            
+            <nav class="header-nav-group">
+                <a href="admin-dashboard.html" class="header-link"><i class="fa-solid fa-gauge"></i> Dashboard</a>
+                <a href="admin-doctors.html" class="header-link active"><i class="fa-solid fa-user-doctor"></i> Doctors</a>
+                <a href="admin-patients.html" class="header-link"><i class="fa-solid fa-hospital-user"></i> Patients</a>
+                <a href="admin-scheduler.html" class="header-link"><i class="fa-solid fa-calendar-plus"></i> Scheduler</a>
+                <a href="admin-rooms.html" class="header-link"><i class="fa-solid fa-door-open"></i> OT Status</a>
+                <a href="admin-analytics.html" class="header-link"><i class="fa-solid fa-chart-line"></i> Analytics</a>
+            </nav>
+
+            <div class="portal-switcher">
+                <button class="portal-switch-btn">
+                    <i class="fa-solid fa-shuffle"></i> SWITCH PORTAL
+                </button>
+                <div class="portal-dropdown">
+                    <a href="admin-dashboard.html" class="portal-option active">
+                        <i class="fa-solid fa-user-shield"></i>
+                        <div>
+                            <p style="font-weight: 800; font-size: 0.9rem;">Admin Command</p>
+                            <p style="font-size: 0.7rem; color: var(--text-secondary);">Enterprise Management</p>
+                        </div>
+                    </a>
+                    <a href="user-dashboard.html" class="portal-option">
+                        <i class="fa-solid fa-user-doctor"></i>
+                        <div>
+                            <p style="font-weight: 800; font-size: 0.9rem;">Staff Portal</p>
+                            <p style="font-size: 0.7rem; color: var(--text-secondary);">Clinical Workspace</p>
+                        </div>
+                    </a>
+                    <a href="patient-dashboard.html" class="portal-option">
+                        <i class="fa-solid fa-hospital-user"></i>
+                        <div>
+                            <p style="font-weight: 800; font-size: 0.9rem;">Patient Portal</p>
+                            <p style="font-size: 0.7rem; color: var(--text-secondary);">Recovery Dashboard</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="user-profile">
+                <div class="admin-info" style="text-align: right; margin-right: 15px;">
+                    <span class="admin-name">Master Command</span>
+                    <span class="admin-role">Institutional Admin</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1559839734-2b71f1536783?auto=format&fit=crop&w=150&h=150&q=80" class="admin-avatar">
+                <a href="../index.html" class="btn-icon" style="margin-left: 15px; border: none; background: var(--bg-base); color: var(--danger);"><i class="fa-solid fa-right-from-bracket"></i></a>
+            </div>
+        </header>
+
+        <main class="main-wrap">
+            <header class="page-header" style="background: linear-gradient(135deg, var(--primary) 0%, #312e81 100%); padding: 3rem; border-radius: 20px; color: white; margin-bottom: 3rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 20px 40px var(--primary-glow);">
+                <div>
+                    <h1 style="font-size: 2.5rem; letter-spacing: -1.5px; color: white;">Practitioner Management</h1>
+                    <p style="color: hsla(0, 0%, 100%, 0.8); font-size: 1.1rem; font-weight: 500;">Institutional directory of clinical specialists and credentials</p>
+                </div>
+                <button class="btn-primary" style="background: white; color: var(--primary); padding: 15px 30px; font-weight: 800;" onclick="document.getElementById('addDoctorModal').style.display='flex'">
+                    <i class="fa-solid fa-user-plus" style="margin-right: 10px;"></i> REGISTER NEW DOCTOR
+                </button>
+            </header>
+
+            <section class="card-premium">
+                <div class="card-header-premium">
+                    <div class="header-left">
+                        <h3>Clinical Staff Registry</h3>
+                        <p>Verified practitioners with active surgical privileges</p>
+                    </div>
+                    <div class="header-right">
+                        <input type="text" placeholder="Search by name or specialty..." class="form-input" style="width: 300px; margin-bottom: 0; border-radius: 12px; height: 45px;">
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table class="data-table-premium">
+                        <thead>
+                            <tr>
+                                <th>Practitioner ID</th>
+                                <th>Doctor Name</th>
+                                <th>Specialization</th>
+                                <th>Experience</th>
+                                <th>Contact Information</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminDoctorTableBody">
+                            <!-- Dynamic Content -->
+                            <tr>
+                                <td><span class="ot-badge">#DOC-001</span></td>
+                                <td>
+                                    <div class="patient-cell">
+                                        <img src="https://images.unsplash.com/photo-1559839734-2b71f1536783?auto=format&fit=crop&w=150&h=150&q=80" class="doc-avatar" style="width: 40px; height: 40px;">
+                                        <span style="font-weight: 700;">Dr. Sarah Chen</span>
+                                    </div>
+                                </td>
+                                <td><span class="badge" style="background: hsla(221, 83%, 53%, 0.1); color: var(--primary);">Neurosurgery</span></td>
+                                <td>12 Years</td>
+                                <td>sarah.chen@medisync.co</td>
+                                <td>
+                                    <div style="display: flex; gap: 8px;">
+                                        <button class="btn-icon" style="color: var(--primary);"><i class="fa-solid fa-user-pen"></i></button>
+                                        <button class="btn-icon" style="color: var(--danger);"><i class="fa-solid fa-trash-can"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Doctor Enrollment Modal -->
+    <div id="addDoctorModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(15, 23, 42, 0.6); backdrop-filter: blur(10px); z-index:2000; align-items:center; justify-content:center;">
+        <div class="card" style="width: 700px; padding: 4rem; border-radius: var(--radius-lg);">
+            <div class="flex-between" style="margin-bottom: 3rem;">
+                <h2 style="font-size: 2rem; color: var(--text-primary); letter-spacing: -1.5px;">Practitioner Enrollment</h2>
+                <button onclick="document.getElementById('addDoctorModal').style.display='none'" style="background:none; border:none; font-size: 2rem; color: var(--text-muted); cursor:pointer;">&times;</button>
+            </div>
+            <form id="doctorForm">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                    <div class="form-group">
+                        <label class="form-label-premium">Doctor Full Name</label>
+                        <input type="text" class="form-input" style="height: 55px; border-radius: 12px; border: 2px solid var(--border);" placeholder="Dr. John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label-premium">Clinical Specialization</label>
+                        <select class="form-input" style="height: 55px; border-radius: 12px; border: 2px solid var(--border);">
+                            <option>Cardiology</option>
+                            <option>Neurology</option>
+                            <option>Orthopedics</option>
+                            <option>Anesthesiology</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label-premium">Years of Experience</label>
+                        <input type="number" class="form-input" style="height: 55px; border-radius: 12px; border: 2px solid var(--border);" placeholder="e.g. 10" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label-premium">Institutional Contact</label>
+                        <input type="email" class="form-input" style="height: 55px; border-radius: 12px; border: 2px solid var(--border);" placeholder="practitioner@medisync.co" required>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-top: 1.5rem;">
+                    <label class="form-label-premium">Professional Credentials Summary</label>
+                    <textarea class="form-input" style="height: 120px; border-radius: 12px; border: 2px solid var(--border); padding-top: 15px; resize: none;" placeholder="Provide brief summary..."></textarea>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%; height: 60px; justify-content: center; font-size: 1.1rem; margin-top: 2rem; border-radius: 15px;">
+                    VALIDATE & ENROLL DOCTOR <i class="fa-solid fa-user-shield" style="margin-left: 10px;"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/main.js" type="module"></script>
+    <script type="module">
+        import { addDoctor } from '../js/firebase-service.js';
+        import { showToast } from '../js/main.js';
+
+        document.getElementById('doctorForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            const original = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> SYNCING...';
+            btn.disabled = true;
+
+            const inputs = e.target.querySelectorAll('input');
+            const selects = e.target.querySelectorAll('select');
+            const data = {
+                name: inputs[0].value,
+                specialization: selects[0].value,
+                experience: inputs[1].value + ' Years',
+                contact: inputs[2].value,
+                bio: e.target.querySelector('textarea').value,
+                doctorId: 'DOC-' + Math.floor(100 + Math.random() * 900)
+            };
+
+            try {
+                await addDoctor(data);
+                showToast('Practitioner Registry Updated', 'success');
+                document.getElementById('addDoctorModal').style.display = 'none';
+                e.target.reset();
+            } catch (err) {
+                showToast('institutional sync failure', 'danger');
+            } finally {
+                btn.innerHTML = original;
+                btn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

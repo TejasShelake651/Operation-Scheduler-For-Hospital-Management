@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Reports | MediSync Patient</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Unified Top Header for Patient Portfolio -->
+        <header class="top-bar-premium">
+            <div class="nav-brand">
+                <div class="logo-icon" style="background: var(--primary);"><i class="fa-solid fa-heart-pulse text-white"></i></div>
+                <span class="logo-text">PATIENT PORTAL</span>
+            </div>
+            
+            <nav class="header-nav-group">
+                <a href="patient-dashboard.html" class="header-link"><i class="fa-solid fa-gauge"></i> My Dashboard</a>
+                <a href="patient-surgeries.html" class="header-link"><i class="fa-solid fa-scalpel"></i> Surgery Info</a>
+                <a href="patient-doctors.html" class="header-link"><i class="fa-solid fa-user-doctor"></i> Specialists</a>
+                <a href="patient-reports.html" class="header-link active"><i class="fa-solid fa-file-medical"></i> My Reports</a>
+            </nav>
+
+
+            <div class="user-profile">
+                <div class="admin-info" style="text-align: right; margin-right: 15px;">
+                    <span class="admin-name">Robert Wilson</span>
+                    <span class="admin-role">Institutional Patient</span>
+                </div>
+                <div class="p-initials" style="width: 45px; height: 45px; font-size: 1rem; background: var(--primary-soft); color: var(--primary); border: 2px solid var(--primary);">RW</div>
+                <a href="../index.html" class="btn-icon" style="margin-left: 15px; border: none; background: var(--bg-base); color: var(--danger);"><i class="fa-solid fa-right-from-bracket"></i></a>
+            </div>
+        </header>
+
+        <main class="main-wrap">
+            <header class="page-header" style="margin-bottom: 3rem;">
+                <div>
+                    <h1 style="font-size: 2.5rem; letter-spacing: -1.5px; color: var(--text-primary);">Clinical Documentation Vault</h1>
+                    <p style="color: var(--text-secondary); font-size: 1.1rem; font-weight: 500;">Secure access to your post-operative reports, lab results, and discharge summaries</p>
+                </div>
+            </header>
+
+            <section class="card-premium" style="padding: 0; overflow: hidden;">
+                <div class="card-header-premium" style="padding: 2.5rem; border-bottom: 1px solid var(--border);">
+                    <div class="header-left">
+                        <h3>Available Clinical Records</h3>
+                        <p>Verified and signed documentation from organizational clinical faculty</p>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table class="data-table-premium">
+                        <thead>
+                            <tr>
+                                <th>Document Reference</th>
+                                <th>Report Category</th>
+                                <th>Release Date</th>
+                                <th>Issuing Specialist</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="ot-badge">#REP-992-A</span></td>
+                                <td><div style="font-weight: 800; color: var(--text-primary);">Pre-Operative Assessment</div></td>
+                                <td>14-MAR-2026</td>
+                                <td><div style="font-weight: 700; color: var(--text-secondary);">Dr. Sarah Chen</div></td>
+                                <td>
+                                    <button class="btn-primary" style="padding: 12px 24px; font-size: 0.85rem; border-radius: 10px; font-weight: 800;" onclick="window.showToast('Generating secure PDF download...', 'info')">
+                                        <i class="fa-solid fa-download" style="margin-right: 10px;"></i> DOWNLOAD
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="ot-badge">#REP-881-B</span></td>
+                                <td><div style="font-weight: 800; color: var(--text-primary);">Cardiac Rhythm Diagnostics</div></td>
+                                <td>10-MAR-2026</td>
+                                <td><div style="font-weight: 700; color: var(--text-secondary);">Institutional Lab Unit</div></td>
+                                <td>
+                                    <button class="btn-primary" style="padding: 12px 24px; font-size: 0.85rem; border-radius: 10px; font-weight: 800;" onclick="window.showToast('Generating secure PDF download...', 'info')">
+                                        <i class="fa-solid fa-download" style="margin-right: 10px;"></i> DOWNLOAD
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <div class="card-premium" style="margin-top: 4rem; background: var(--bg-base); border: 2px dashed var(--border); padding: 4rem; text-align: center; border-radius: 24px;">
+                <div style="width: 80px; height: 80px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem; color: var(--primary); font-size: 2.5rem; box-shadow: 0 10px 20px rgba(0,0,0,0.05);">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <h3 style="color: var(--text-primary); font-size: 1.5rem; font-weight: 800; margin-bottom: 10px;">Enterprise Security Protocol</h3>
+                <p style="color: var(--text-secondary); font-size: 1rem; font-weight: 500; max-width: 600px; margin: 0 auto;">Your medical data is encrypted using institutional-grade 256-bit protocols. Only you and authorized clinical faculty can access these records.</p>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/main.js" type="module"></script>
+    <script type="module">
+        import { showToast } from '../js/main.js';
+        window.showToast = showToast;
+    </script>
+</body>
+</html>

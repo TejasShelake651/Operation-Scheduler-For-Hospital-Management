@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Repository | MediSync Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Persistent Header for Institutional Staff -->
+        <header class="top-bar-premium">
+            <div class="nav-brand">
+                <div class="logo-icon" style="background: var(--primary);"><i class="fa-solid fa-user-doctor text-white"></i></div>
+                <span class="logo-text">STAFF PORTAL</span>
+            </div>
+            
+            <nav class="header-nav-group">
+                <a href="user-dashboard.html" class="header-link"><i class="fa-solid fa-gauge"></i> Dashboard</a>
+                <a href="user-patients.html" class="header-link"><i class="fa-solid fa-hospital-user"></i> Patients</a>
+                <a href="user-procedures.html" class="header-link"><i class="fa-solid fa-stethoscope"></i> Procedures</a>
+                <a href="user-reports.html" class="header-link active"><i class="fa-solid fa-chart-line"></i> Repository</a>
+            </nav>
+
+            <div class="user-profile">
+                <div class="admin-info" style="text-align: right; margin-right: 15px;">
+                    <span class="admin-name">Dr. Julian Moore</span>
+                    <span class="admin-role">Lead Practitioner</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=150&h=150&q=80" class="admin-avatar">
+                <a href="../index.html" class="btn-icon" style="margin-left: 15px; border: none; background: var(--bg-base); color: var(--danger);"><i class="fa-solid fa-right-from-bracket"></i></a>
+            </div>
+        </header>
+
+        <main class="main-wrap">
+            <header class="page-header" style="background: linear-gradient(135deg, #6366f1 0%, #312e81 100%); padding: 3rem; border-radius: 20px; color: white; margin-bottom: 3rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);">
+                <div>
+                    <h1 style="font-size: 2.5rem; letter-spacing: -1.5px; color: white;">Surgical Documentation</h1>
+                    <p style="color: hsla(0, 0%, 100%, 0.8); font-size: 1.1rem; font-weight: 500;">Post-operative reports and Case Registry access for active practitioners</p>
+                </div>
+                <button class="btn-primary" style="background: white; color: #4f46e5; padding: 15px 30px; font-weight: 800; border-radius: 12px;" onclick="showToast('Initializing New Case Report...', 'info')">
+                    <i class="fa-solid fa-plus-circle" style="margin-right: 10px;"></i> CREATE NEW REPORT
+                </button>
+            </header>
+
+            <div style="display: grid; grid-template-columns: 1.6fr 1fr; gap: 3rem;">
+                <section class="card-premium" style="padding: 0;">
+                    <div class="card-header-premium" style="padding: 2.5rem;">
+                        <div class="header-left">
+                            <h3>Verified Case History</h3>
+                            <p>Archived surgical records and procedural outcomes</p>
+                        </div>
+                        <input type="text" placeholder="Filter by Case Ref..." class="form-input" style="width: 250px; margin-bottom: 0; border-radius: 12px; height: 50px; border: 2px solid var(--border);">
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table-premium">
+                            <thead>
+                                <tr>
+                                    <th>Ref ID</th>
+                                    <th>Patient</th>
+                                    <th>Verification Date</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="ot-badge">#REF-229</span></td>
+                                    <td><span style="font-weight: 700;">Robert Wilson</span></td>
+                                    <td>12-MAR-2026</td>
+                                    <td><span class="badge badge-success">VERIFIED</span></td>
+                                    <td>
+                                        <button class="btn-icon" style="color: var(--primary); font-size: 1.2rem;"><i class="fa-solid fa-file-pdf"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><span class="ot-badge">#REF-105</span></td>
+                                    <td><span style="font-weight: 700;">Linda May</span></td>
+                                    <td>10-MAR-2026</td>
+                                    <td><span class="badge badge-success">VERIFIED</span></td>
+                                    <td>
+                                        <button class="btn-icon" style="color: var(--primary); font-size: 1.2rem;"><i class="fa-solid fa-file-pdf"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <div class="card-premium" style="padding: 3rem;">
+                    <h3 style="font-size: 1.5rem; margin-bottom: 2rem; letter-spacing: -1px; font-weight: 800;">Post-Op Conclusion</h3>
+                    <div style="padding: 2.5rem; background: var(--bg-base); border-radius: 20px; min-height: 280px; position: relative; border: 1px solid var(--border);">
+                        <p style="color: var(--text-secondary); font-size: 1rem; font-style: italic; line-height: 1.8; font-weight: 500;">
+                            Case #REF-229-B Conclusion: <br><br>
+                            Surgical orchestration successful. Tissue integrity maintained. Minimal intraoperative fluctuation in systolic pressure. Post-operative recovery cycle initiated in Ward Delta-1...
+                        </p>
+                    </div>
+                    <button class="btn-primary" style="width: 100%; margin-top: 2.5rem; justify-content: center; background: white; color: var(--primary); border: 2px solid var(--primary); font-weight: 800; height: 55px; border-radius: 12px;" onclick="showToast('AI Clinical Dictation starting...', 'info')">
+                        <i class="fa-solid fa-microphone" style="margin-right: 10px;"></i> ENABLE CLINICAL DICTATION
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/main.js" type="module"></script>
+    <script type="module">
+        import { showToast } from '../js/main.js';
+        window.showToast = showToast;
+    </script>
+</body>
+</html>

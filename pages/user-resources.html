@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinical Resources | MediSync Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Persistent Header for Institutional Staff -->
+        <header class="top-bar-premium">
+            <div class="nav-brand">
+                <div class="logo-icon" style="background: var(--primary);"><i class="fa-solid fa-user-doctor text-white"></i></div>
+                <span class="logo-text">STAFF PORTAL</span>
+            </div>
+            
+            <nav class="header-nav-group">
+                <a href="user-dashboard.html" class="header-link"><i class="fa-solid fa-gauge"></i> Dashboard</a>
+                <a href="user-patients.html" class="header-link"><i class="fa-solid fa-hospital-user"></i> Patients</a>
+                <a href="user-procedures.html" class="header-link"><i class="fa-solid fa-stethoscope"></i> Procedures</a>
+                <a href="user-reports.html" class="header-link"><i class="fa-solid fa-chart-line"></i> Repository</a>
+            </nav>
+
+            <div class="user-profile">
+                <div class="admin-info" style="text-align: right; margin-right: 15px;">
+                    <span class="admin-name">Dr. Julian Moore</span>
+                    <span class="admin-role">Lead Practitioner</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=150&h=150&q=80" class="admin-avatar">
+                <a href="../index.html" class="btn-icon" style="margin-left: 15px; border: none; background: var(--bg-base); color: var(--danger);"><i class="fa-solid fa-right-from-bracket"></i></a>
+            </div>
+        </header>
+
+        <main class="main-wrap">
+            <header class="page-header" style="margin-bottom: 3rem;">
+                <div>
+                    <h1 style="font-size: 2.5rem; letter-spacing: -1.5px; color: var(--text-primary);">Surgical Resource Inventory</h1>
+                    <p style="color: var(--text-secondary); font-size: 1.1rem; font-weight: 500;">Clinical supply chain and instrument allocation across institutional suites</p>
+                </div>
+                <button class="btn-primary" style="padding: 15px 30px; font-weight: 800; border-radius: 12px;" onclick="showToast('Loading inventory catalog...', 'info')">
+                    <i class="fa-solid fa-box-open" style="margin-right: 10px;"></i> BROWSE FULL CATALOG
+                </button>
+            </header>
+
+            <section class="stat-grid" style="grid-template-columns: repeat(3, 1fr); gap: 2.5rem; margin-bottom: 3rem;">
+                <div class="card-premium" style="padding: 2.5rem;">
+                    <div style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--primary);"><i class="fa-solid fa-pills"></i></div>
+                    <h3 style="margin-bottom: 1.5rem; font-size: 1.25rem;">Medications</h3>
+                    <ul style="color: var(--text-secondary); padding-left: 1.25rem; font-size: 0.95rem; line-height: 2; font-weight: 500;">
+                        <li>Propofol (20mg/mL)</li>
+                        <li>Fentanyl (50mcg/mL)</li>
+                        <li>Lidocaine 2%</li>
+                        <li>Cefazolin 2g</li>
+                    </ul>
+                </div>
+                <div class="card-premium" style="padding: 2.5rem;">
+                    <div style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--primary);"><i class="fa-solid fa-scalpel"></i></div>
+                    <h3 style="margin-bottom: 1.5rem; font-size: 1.25rem;">Instruments</h3>
+                    <ul style="color: var(--text-secondary); padding-left: 1.25rem; font-size: 0.95rem; line-height: 2; font-weight: 500;">
+                        <li>Laparoscopic Set A</li>
+                        <li>Trocar (10mm, 5mm)</li>
+                        <li>Grasping Forceps</li>
+                        <li>Electrocautery Hook</li>
+                    </ul>
+                </div>
+                <div class="card-premium" style="padding: 2.5rem;">
+                    <div style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--primary);"><i class="fa-solid fa-box-archive"></i></div>
+                    <h3 style="margin-bottom: 1.5rem; font-size: 1.25rem;">Consumables</h3>
+                    <ul style="color: var(--text-secondary); padding-left: 1.25rem; font-size: 0.95rem; line-height: 2; font-weight: 500;">
+                        <li>Sterile Gowns (Size L)</li>
+                        <li>Gloves (Size 7.5)</li>
+                        <li>Standard Suture Kit</li>
+                        <li>Gauze (4x4)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="card-premium" style="padding: 3rem; max-width: 700px; margin: 0 auto;">
+                <div style="margin-bottom: 2.5rem;">
+                    <h3 style="font-size: 1.5rem; letter-spacing: -0.5px; font-weight: 800;">Request Specialized Materials</h3>
+                    <p style="color: var(--text-secondary); font-size: 1rem; font-weight: 500;">For unique case requirements, notify the supply chain administrator below.</p>
+                </div>
+                <div class="form-group">
+                    <textarea class="form-input" rows="5" style="resize: none; border-radius: 12px; border: 2px solid var(--border); padding: 1.5rem;" placeholder="Describe unique instruments or drugs needed for upcoming procedures..."></textarea>
+                </div>
+                <button class="btn-primary" style="width: 100%; justify-content: center; height: 60px; border-radius: 15px; font-weight: 800; font-size: 1.1rem;" onclick="showToast('Supply request transmitted to logistics.', 'success')">TRANSMIT TO LOGISTICS <i class="fa-solid fa-truck-ramp-box" style="margin-left: 10px;"></i></button>
+            </section>
+        </main>
+    </div>
+
+    <script src="../js/main.js" type="module"></script>
+    <script type="module">
+        import { showToast } from '../js/main.js';
+        window.showToast = showToast;
+    </script>
+</body>
+</html>

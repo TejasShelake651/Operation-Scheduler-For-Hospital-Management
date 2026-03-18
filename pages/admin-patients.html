@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Patients | MediSync Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="admin-layout">
+        <header class="top-bar-premium">
+            <div class="nav-brand">
+                <div class="logo-icon"><i class="fa-solid fa-hospital-user text-white"></i></div>
+                <span class="logo-text">MEDISYNC ADMIN</span>
+            </div>
+            
+            <nav class="header-nav-group">
+                <a href="admin-dashboard.html" class="header-link"><i class="fa-solid fa-gauge"></i> Dashboard</a>
+                <a href="admin-doctors.html" class="header-link"><i class="fa-solid fa-user-doctor"></i> Doctors</a>
+                <a href="admin-patients.html" class="header-link active"><i class="fa-solid fa-hospital-user"></i> Patients</a>
+                <a href="admin-scheduler.html" class="header-link"><i class="fa-solid fa-calendar-plus"></i> Scheduler</a>
+                <a href="admin-rooms.html" class="header-link"><i class="fa-solid fa-door-open"></i> OT Status</a>
+                <a href="admin-analytics.html" class="header-link"><i class="fa-solid fa-chart-line"></i> Analytics</a>
+            </nav>
+
+            <div class="user-profile">
+                <div class="admin-info" style="text-align: right; margin-right: 15px;">
+                    <span class="admin-name">Master Command</span>
+                    <span class="admin-role">Institutional Admin</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1559839734-2b71f1536783?auto=format&fit=crop&w=150&h=150&q=80" class="admin-avatar">
+                <a href="../index.html" class="btn-icon" style="margin-left: 15px; border: none; background: var(--bg-base); color: var(--danger);"><i class="fa-solid fa-right-from-bracket"></i></a>
+            </div>
+        </header>
+
+        <main class="main-wrap">
+            <header class="page-header" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); padding: 3rem; border-radius: 20px; color: white; margin-bottom: 3rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 20px 40px rgba(16, 185, 129, 0.2);">
+                <div>
+                    <h1 style="font-size: 2.5rem; letter-spacing: -1.5px; color: white;">Patient Registry</h1>
+                    <p style="color: hsla(0, 0%, 100%, 0.8); font-size: 1.1rem; font-weight: 500;">Secure management of electronic health records and admission data</p>
+                </div>
+                <button class="btn-primary" style="background: white; color: #059669; padding: 15px 30px; font-weight: 800;" onclick="document.getElementById('addPatientModal').style.display='flex'">
+                    <i class="fa-solid fa-plus-circle" style="margin-right: 10px;"></i> ENROLL NEW PATIENT
+                </button>
+            </header>
+
+            <section class="card-premium">
+                <div class="card-header-premium">
+                    <div class="header-left">
+                        <h3>Institutional Admittees</h3>
+                        <p>Verified clinical records for active institutional patients</p>
+                    </div>
+                    <div class="header-right">
+                        <input type="text" placeholder="Search by name or disease..." class="form-input" style="width: 300px; margin-bottom: 0; border-radius: 12px; height: 45px;">
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table class="data-table-premium">
+                        <thead>
+                            <tr>
+                                <th>Patient ID</th>
+                                <th>Full Name</th>
+                                <th>Age / DOB</th>
+                                <th>Primary Diagnosis</th>
+                                <th>Contact Information</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminPatientTableBody">
+                            <!-- Dynamic Content -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Patient Enrollment Modal -->
+    <div id="addPatientModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(15, 23, 42, 0.6); backdrop-filter: blur(10px); z-index:2000; align-items:center; justify-content:center;">
+        <div class="card" style="width: 700px; padding: 4rem; border-radius: var(--radius-lg);">
+            <div class="flex-between" style="margin-bottom: 3rem;">
+                <h2 style="font-size: 2rem; color: var(--text-primary); letter-spacing: -1.5px;">Patient Admission</h2>
+                <button onclick="document.getElementById('addPatientModal').style.display='none'" style="background:none; border:none; font-size: 2rem; color: var(--text-muted); cursor:pointer;">&times;</button>
+            </div>
+            <form id="patientForm">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                    <div class="form-group">
+                        <label class="form-label-premium">Full Name</label>
+                        <input type="text" class="form-input" style="height: 55px; border-radius: 12px; border: 2px solid var(--border);" placeholder="e.g. Robert Wilson" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label-premium">Age / Years</label>
+                        <input type="number" class="form-input" style="height: 55px; border-radius: 12px; border: 2px solid var(--border);" placeholder="e.g. 45" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label-premium">Primary Diagnosis</label>
+                        <input type="text" class="form-input" style="height: 55px; border-radius: 12px; border: 2px solid var(--border);" placeholder="e.g. Type 2 Diabetes" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label-premium">Emergency Contact</label>
+                        <input type="tel" class="form-input" style="height: 55px; border-radius: 12px; border: 2px solid var(--border);" placeholder="+1 (555) 000-0000" required>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-top: 1.5rem;">
+                    <label class="form-label-premium">Clinical Directives</label>
+                    <textarea class="form-input" style="height: 120px; border-radius: 12px; border: 2px solid var(--border); padding-top: 15px; resize: none;" placeholder="Symptoms, history, or special care instructions..."></textarea>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%; height: 60px; justify-content: center; font-size: 1.1rem; margin-top: 2rem; border-radius: 15px;">
+                    INITIALIZE EHR RECORD <i class="fa-solid fa-file-shield" style="margin-left: 10px;"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/main.js" type="module"></script>
+    <script type="module">
+        import { addPatient, streamPatients, deletePatient } from '../js/firebase-service.js';
+        import { showToast } from '../js/main.js';
+
+        document.getElementById('patientForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            const original = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> ADMITTING...';
+            btn.disabled = true;
+
+            const inputs = e.target.querySelectorAll('input');
+            const data = {
+                name: inputs[0].value,
+                age: inputs[1].value,
+                condition: inputs[2].value,
+                contact: inputs[3].value,
+                notes: e.target.querySelector('textarea').value,
+                patientId: 'PAT-' + Math.floor(1000 + Math.random() * 9000),
+                status: 'ADMITTED'
+            };
+
+            try {
+                await addPatient(data);
+                showToast('Clinical Registry Updated', 'success');
+                document.getElementById('addPatientModal').style.display = 'none';
+                e.target.reset();
+            } catch (err) {
+                showToast('Failed to sync institutional database', 'danger');
+            } finally {
+                btn.innerHTML = original;
+                btn.disabled = false;
+            }
+        });
+
+        streamPatients((patients) => {
+            const tbody = document.getElementById('adminPatientTableBody');
+            tbody.innerHTML = patients.map(p => `
+                <tr>
+                    <td><span class="ot-badge">#${p.patientId}</span></td>
+                    <td>
+                        <div class="patient-cell">
+                            <div class="p-initials">${p.name?.charAt(0) || 'P'}</div>
+                            <span style="font-weight: 700;">${p.name}</span>
+                        </div>
+                    </td>
+                    <td>${p.age} Years</td>
+                    <td><div style="color: var(--text-primary); font-weight: 600;">${p.condition}</div></td>
+                    <td>${p.contact}</td>
+                    <td>
+                        <div style="display: flex; gap: 8px;">
+                            <button class="btn-icon" style="color: var(--primary);"><i class="fa-solid fa-user-pen"></i></button>
+                            <button class="btn-icon" style="color: var(--danger);" onclick="window.dischargePatient('${p.id}')"><i class="fa-solid fa-user-slash"></i></button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        });
+
+        window.dischargePatient = async (id) => {
+            if(confirm('Discharge this patient and archive record?')) {
+                await deletePatient(id);
+                showToast('Patient record archived', 'info');
+            }
+        };
+    </script>
+</body>
+</html>

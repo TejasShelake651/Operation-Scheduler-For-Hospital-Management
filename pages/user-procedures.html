@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surgical Live Board | MediSync Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Persistent Header for Institutional Staff -->
+        <header class="top-bar-premium">
+            <div class="nav-brand">
+                <div class="logo-icon" style="background: var(--primary);"><i class="fa-solid fa-user-doctor text-white"></i></div>
+                <span class="logo-text">STAFF PORTAL</span>
+            </div>
+            
+            <nav class="header-nav-group">
+                <a href="user-dashboard.html" class="header-link"><i class="fa-solid fa-gauge"></i> Dashboard</a>
+                <a href="user-patients.html" class="header-link"><i class="fa-solid fa-hospital-user"></i> Patients</a>
+                <a href="user-procedures.html" class="header-link active"><i class="fa-solid fa-stethoscope"></i> Procedures</a>
+                <a href="user-reports.html" class="header-link"><i class="fa-solid fa-chart-line"></i> Repository</a>
+            </nav>
+
+            <div class="user-profile">
+                <div class="admin-info" style="text-align: right; margin-right: 15px;">
+                    <span class="admin-name">Dr. Julian Moore</span>
+                    <span class="admin-role">Lead Practitioner</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=150&h=150&q=80" class="admin-avatar">
+                <a href="../index.html" class="btn-icon" style="margin-left: 15px; border: none; background: var(--bg-base); color: var(--danger);"><i class="fa-solid fa-right-from-bracket"></i></a>
+            </div>
+        </header>
+
+        <main class="main-wrap">
+            <header class="page-header" style="background: linear-gradient(135deg, #ef4444 0%, #991b1b 100%); padding: 3rem; border-radius: 20px; color: white; margin-bottom: 3rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 20px 40px rgba(239, 68, 68, 0.2);">
+                <div>
+                    <h1 style="font-size: 2.5rem; letter-spacing: -1.5px; color: white;">Intraoperative Telemetry</h1>
+                    <p style="color: hsla(0, 0%, 100%, 0.8); font-size: 1.1rem; font-weight: 500;">Live data acquisition for Case #NS-403 | OT Suite 04-A</p>
+                </div>
+                <div style="display: flex; gap: 1rem;">
+                    <button class="btn-primary" style="background: white; color: #ef4444; border: none; font-weight: 800; border-radius: 12px; padding: 12px 25px;" onclick="showToast('Initiating Emergency Team Call...', 'danger')">
+                        <i class="fa-solid fa-triangle-exclamation"></i> EMERGENCY OVERRIDE
+                    </button>
+                    <button class="btn-primary" style="background: rgba(255,255,255,0.2); border: 2px solid white; font-weight: 800; border-radius: 12px; padding: 12px 25px;" onclick="showToast('Finalizing Case Record...', 'success')">
+                        <i class="fa-solid fa-circle-check"></i> COMPLETE PROCEDURE
+                    </button>
+                </div>
+            </header>
+
+            <section class="stat-grid" style="grid-template-columns: repeat(4, 1fr); margin-bottom: 3rem;">
+                <div class="stat-card" style="border-left: 5px solid #ef4444; padding: 2rem;">
+                    <div class="stat-icon" style="background: rgba(239, 68, 68, 0.1); color: #ef4444;"><i class="fa-solid fa-heart-pulse"></i></div>
+                    <div>
+                        <p class="stat-label">HEART RATE</p>
+                        <h2 class="stat-value">72 <span style="font-size: 0.9rem; font-weight: 400; opacity: 0.6;">BPM</span></h2>
+                    </div>
+                </div>
+                <div class="stat-card" style="border-left: 5px solid #2563eb; padding: 2rem;">
+                    <div class="stat-icon" style="background: rgba(37, 99, 235, 0.1); color: #2563eb;"><i class="fa-solid fa-droplet"></i></div>
+                    <div>
+                        <p class="stat-label">BLOOD PRESSURE</p>
+                        <h2 class="stat-value">118/72</h2>
+                    </div>
+                </div>
+                <div class="stat-card" style="border-left: 5px solid #10b981; padding: 2rem;">
+                    <div class="stat-icon" style="background: rgba(16, 185, 129, 0.1); color: #10b981;"><i class="fa-solid fa-wind"></i></div>
+                    <div>
+                        <p class="stat-label">OXYGEN SAT (SPO2)</p>
+                        <h2 class="stat-value">98 <span style="font-size: 0.9rem; font-weight: 400; opacity: 0.6;">%</span></h2>
+                    </div>
+                </div>
+                <div class="stat-card" style="border-left: 5px solid #f59e0b; padding: 2rem;">
+                    <div class="stat-icon" style="background: rgba(245, 158, 11, 0.1); color: #f59e0b;"><i class="fa-solid fa-temperature-half"></i></div>
+                    <div>
+                        <p class="stat-label">CORE TEMPERATURE</p>
+                        <h2 class="stat-value">36.5 <span style="font-size: 0.9rem; font-weight: 400; opacity: 0.6;">°C</span></h2>
+                    </div>
+                </div>
+            </section>
+
+            <div style="display: grid; grid-template-columns: 2.2fr 1fr; gap: 3rem;">
+                <div class="card-premium" style="padding: 3rem;">
+                    <div class="flex-between" style="margin-bottom: 3rem;">
+                        <h3 style="font-size: 1.5rem; letter-spacing: -1px; font-weight: 800;">Intraoperative Milestones</h3>
+                        <span class="badge badge-success">STABLE PROGRESSION</span>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 2rem;">
+                        <div style="display: flex; gap: 2rem; align-items: flex-start; padding-bottom: 2rem; border-bottom: 1px solid var(--border);">
+                            <div style="width: 32px; height: 32px; border-radius: 8px; background: var(--success); color: white; display: flex; align-items: center; justify-content: center;"><i class="fa-solid fa-check"></i></div>
+                            <div>
+                                <h4 style="font-size: 1.1rem; margin-bottom: 5px; font-weight: 700;">Primary Incision & Access</h4>
+                                <p style="color: var(--text-secondary); font-size: 0.9rem; font-weight: 500;">Verified by Dr. Moore at 09:12 AM</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 2rem; align-items: flex-start; padding-bottom: 2rem; border-bottom: 1px solid var(--border);">
+                            <div style="width: 32px; height: 32px; border-radius: 8px; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center;"><i class="fa-solid fa-spinner fa-spin"></i></div>
+                            <div>
+                                <h4 style="font-size: 1.1rem; margin-bottom: 5px; font-weight: 700;">Ligation of Target Vasculature</h4>
+                                <p style="color: var(--primary); font-size: 0.9rem; font-weight: 800;">Active Stage - Real-time monitoring enabled</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 2rem; align-items: flex-start; opacity: 0.4;">
+                            <div style="width: 32px; height: 32px; border-radius: 8px; border: 2px solid var(--border);"></div>
+                            <div>
+                                <h4 style="font-size: 1.1rem; margin-bottom: 5px; font-weight: 700;">Hemostasis & Closure</h4>
+                                <p style="color: var(--text-secondary); font-size: 0.9rem; font-weight: 500;">Scheduled Stage</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-premium" style="padding: 3rem;">
+                    <h3 style="font-size: 1.5rem; margin-bottom: 2.5rem; letter-spacing: -1px; font-weight: 800;">Clinical Log</h3>
+                    <div style="height: 380px; overflow-y: auto; display: flex; flex-direction: column; gap: 2rem; padding-right: 15px;">
+                        <div style="padding: 1.5rem; background: var(--bg-base); border-radius: 12px; border: 1px solid var(--border);">
+                            <span style="font-size: 0.8rem; color: var(--primary); font-weight: 900;">[09:24:12]</span>
+                            <p style="margin-top: 8px; font-size: 0.95rem; color: var(--text-primary); font-weight: 600; line-height: 1.5;">O2 Saturation peaked at 99%. Anesthesia depth verified.</p>
+                        </div>
+                        <div style="padding: 1.5rem; background: var(--bg-base); border-radius: 12px; border: 1px solid var(--border);">
+                            <span style="font-size: 0.8rem; color: var(--primary); font-weight: 900;">[09:22:01]</span>
+                            <p style="margin-top: 8px; font-size: 0.95rem; color: var(--text-primary); font-weight: 600; line-height: 1.5;">Fluid aspiration initiated in site Beta-1.</p>
+                        </div>
+                    </div>
+                    <button class="btn-white" style="width: 100%; margin-top: 2.5rem; justify-content: center; height: 50px; border-radius: 10px; font-weight: 800;" onclick="showToast('Institutional node sync enabled.', 'info')">LOG OBSERVATION</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/main.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surgical Workspace | MediSync Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Persistent Header for Institutional Staff -->
+        <header class="top-bar-premium">
+            <div class="nav-brand">
+                <div class="logo-icon" style="background: var(--primary);"><i class="fa-solid fa-user-doctor text-white"></i></div>
+                <span class="logo-text">STAFF PORTAL</span>
+            </div>
+            
+            <nav class="header-nav-group">
+                <a href="user-dashboard.html" class="header-link active"><i class="fa-solid fa-gauge"></i> Dashboard</a>
+                <a href="user-patients.html" class="header-link"><i class="fa-solid fa-hospital-user"></i> Patients</a>
+                <a href="user-procedures.html" class="header-link"><i class="fa-solid fa-stethoscope"></i> Procedures</a>
+                <a href="user-reports.html" class="header-link"><i class="fa-solid fa-chart-line"></i> Repository</a>
+            </nav>
+
+            <div class="portal-switcher">
+                <button class="portal-switch-btn">
+                    <i class="fa-solid fa-shuffle"></i> SWITCH PORTAL
+                </button>
+                <div class="portal-dropdown">
+                    <a href="admin-dashboard.html" class="portal-option">
+                        <i class="fa-solid fa-user-shield"></i>
+                        <div>
+                            <p style="font-weight: 800; font-size: 0.9rem;">Admin Command</p>
+                            <p style="font-size: 0.7rem; color: var(--text-secondary);">Enterprise Management</p>
+                        </div>
+                    </a>
+                    <a href="user-dashboard.html" class="portal-option active">
+                        <i class="fa-solid fa-user-doctor"></i>
+                        <div>
+                            <p style="font-weight: 800; font-size: 0.9rem;">Staff Portal</p>
+                            <p style="font-size: 0.7rem; color: var(--text-secondary);">Clinical Workspace</p>
+                        </div>
+                    </a>
+                    <a href="patient-dashboard.html" class="portal-option">
+                        <i class="fa-solid fa-hospital-user"></i>
+                        <div>
+                            <p style="font-weight: 800; font-size: 0.9rem;">Patient Portal</p>
+                            <p style="font-size: 0.7rem; color: var(--text-secondary);">Recovery Dashboard</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="user-profile">
+                <div class="admin-info" style="text-align: right; margin-right: 15px;">
+                    <span class="admin-name">Dr. Julian Moore</span>
+                    <span class="admin-role">Lead Practitioner</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=150&h=150&q=80" class="admin-avatar">
+                <a href="../index.html" class="btn-icon" style="margin-left: 15px; border: none; background: var(--bg-base); color: var(--danger);"><i class="fa-solid fa-right-from-bracket"></i></a>
+            </div>
+        </header>
+
+        <main class="main-wrap">
+            <section class="card" style="margin-bottom: 3rem; background: linear-gradient(135deg, #2563eb, #1e40af); border: none; overflow: hidden; position: relative; padding: 4rem; border-radius: 30px;">
+                <div style="position: relative; z-index: 2;">
+                    <h1 style="color: white; font-size: 3rem; margin-bottom: 1rem; letter-spacing: -2px; font-weight: 900;">Surgical Workspace</h1>
+                    <p style="color: rgba(255,255,255,0.9); font-size: 1.25rem; font-weight: 500;">Lead Practitioner: <span style="font-weight: 800; color: white;">Synchronized with Institutional Command</span></p>
+                    <div style="margin-top: 2.5rem; display: flex; gap: 1rem;">
+                        <button class="btn-primary" style="background: white; color: var(--primary); box-shadow: none; padding: 15px 30px; border-radius: 12px;" onclick="document.getElementById('bookAppointmentModal').style.display='flex'">
+                            <i class="fa-solid fa-calendar-plus" style="margin-right: 10px;"></i> REQUEST OT SLOT
+                        </button>
+                        <button class="btn-primary" style="background: rgba(255,255,255,0.1); box-shadow: none; border: 1px solid rgba(255,255,255,0.2); padding: 15px 30px; border-radius: 12px;" onclick="showToast('Loading peer directory...', 'info')">
+                            <i class="fa-solid fa-user-group" style="margin-right: 10px;"></i> CONSULT TEAM
+                        </button>
+                    </div>
+                </div>
+                <i class="fa-solid fa-stethoscope" style="position: absolute; right: 5%; bottom: -20px; font-size: 20rem; opacity: 0.05; pointer-events: none; color: white;"></i>
+            </section>
+
+            <section class="stat-grid">
+                <div class="stat-card premium">
+                    <div class="stat-icon-wrap blue"><i class="fa-solid fa-clock"></i></div>
+                    <div class="stat-info">
+                        <p class="stat-label">PENDING SURGERIES</p>
+                        <h2 class="stat-value">04</h2>
+                        <span class="stat-trend">QUEUED</span>
+                    </div>
+                </div>
+                <div class="stat-card premium">
+                    <div class="stat-icon-wrap emerald"><i class="fa-solid fa-check"></i></div>
+                    <div class="stat-info">
+                        <p class="stat-label">MONTHLY SUCCESS</p>
+                        <h2 class="stat-value">28</h2>
+                        <span class="stat-trend up"><i class="fa-solid fa-arrow-up"></i> 100% Rate</span>
+                    </div>
+                </div>
+                <div class="stat-card premium">
+                    <div class="stat-icon-wrap violet"><i class="fa-solid fa-star"></i></div>
+                    <div class="stat-info">
+                        <p class="stat-label">PEER RATING</p>
+                        <h2 class="stat-value">4.9 / 5</h2>
+                        <span class="stat-trend">ELITE TIER</span>
+                    </div>
+                </div>
+            </section>
+
+            <div class="card-premium" style="margin-top: 3rem; padding: 0;">
+                <div class="card-header-premium" style="padding: 2.5rem;">
+                    <div class="header-left">
+                        <h3>My Surgical Schedule</h3>
+                        <p>Real-time updates from organizational command</p>
+                    </div>
+                    <div style="display: flex; gap: 1rem; align-items: center;">
+                        <input type="text" placeholder="Search my schedule..." class="form-input" style="width: 280px; margin-bottom: 0; height: 50px; border-radius: 12px; border: 2px solid var(--border);">
+                        <span class="status-indicator live">LIVE SYNC</span>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table class="data-table-premium">
+                        <thead>
+                            <tr>
+                                <th>Date & Time</th>
+                                <th>Patient Name</th>
+                                <th>OT Number</th>
+                                <th>Procedure</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="userScheduleBody">
+                            <!-- Dynamic Content -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Book Appointment Modal -->
+    <div id="bookAppointmentModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(15, 23, 42, 0.6); backdrop-filter: blur(10px); z-index:2100; align-items:center; justify-content:center;">
+        <div class="card" style="width: 600px; padding: 4rem; border-radius: 24px;">
+            <div class="flex-between" style="margin-bottom: 3rem;">
+                <div>
+                    <h3 style="font-size: 1.75rem; letter-spacing: -1px; font-weight: 800;">Request Procedure Slot</h3>
+                    <p style="color: var(--text-secondary); font-size: 1rem; font-weight: 500;">Submit allocation request to institutional command</p>
+                </div>
+                <button onclick="document.getElementById('bookAppointmentModal').style.display='none'" style="background:none; border:none; font-size: 2.5rem; color: var(--text-muted); cursor:pointer; line-height: 1;">&times;</button>
+            </div>
+            <form id="bookAppointmentForm">
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label class="form-label-premium">Patient Full Name</label>
+                    <input type="text" id="aptPatient" class="form-input" placeholder="e.g. Robert Wilson" required style="height: 55px; border-radius: 12px; border: 2px solid var(--border);">
+                </div>
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label class="form-label-premium">Procedure Classification</label>
+                    <input type="text" id="aptProcedure" class="form-input" placeholder="e.g. Cardiac Bypass" required style="height: 55px; border-radius: 12px; border: 2px solid var(--border);">
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+                    <div>
+                        <label class="form-label-premium">Preferred Date</label>
+                        <input type="date" id="aptDate" class="form-input" required style="height: 55px; border-radius: 12px; border: 2px solid var(--border);">
+                    </div>
+                    <div>
+                        <label class="form-label-premium">Preferred Time</label>
+                        <input type="time" id="aptTime" class="form-input" required style="height: 55px; border-radius: 12px; border: 2px solid var(--border);">
+                    </div>
+                </div>
+                <div class="form-group" style="margin-bottom: 2.5rem;">
+                    <label class="form-label-premium">Requested Surgical Suite</label>
+                    <select id="aptOT" class="form-input" style="height: 55px; border-radius: 12px; border: 2px solid var(--border);">
+                        <option>OT-01-A (Modular)</option>
+                        <option>OT-02-B (Cardiac)</option>
+                        <option>OT-04-A (Neuro)</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; height: 60px; border-radius: 15px; font-size: 1.1rem; font-weight: 800;">SUBMIT TO COMMAND <i class="fa-solid fa-paper-plane" style="margin-left: 10px;"></i></button>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/main.js" type="module"></script>
+    <script type="module">
+        import { addSurgery, streamSurgeries } from '../js/firebase-service.js';
+        import { showToast } from '../js/main.js';
+
+        document.getElementById('bookAppointmentForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> SYNCING...';
+            btn.disabled = true;
+
+            const data = {
+                patientName: document.getElementById('aptPatient').value,
+                procedure: document.getElementById('aptProcedure').value,
+                dateTime: `${document.getElementById('aptDate').value} ${document.getElementById('aptTime').value}`,
+                otId: document.getElementById('aptOT').value,
+                leadSurgeon: 'Julian Moore', 
+                status: 'QUEUED'
+            };
+
+            try {
+                await addSurgery(data);
+                showToast('Request Transmitted to Command', 'success');
+                document.getElementById('bookAppointmentModal').style.display = 'none';
+                e.target.reset();
+            } catch (err) {
+                showToast('Transmission failure', 'danger');
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        });
+
+        streamSurgeries((surgeries) => {
+            const tbody = document.getElementById('userScheduleBody');
+            tbody.innerHTML = surgeries.map(s => `
+                <tr>
+                    <td><strong>${s.dateTime || (s.surgeryDate + ' ' + s.surgeryTime)}</strong></td>
+                    <td>
+                        <div class="patient-cell">
+                            <div class="p-initials">${s.patientName?.charAt(0) || 'P'}</div>
+                            <span style="font-weight: 700;">${s.patientName}</span>
+                        </div>
+                    </td>
+                    <td><span class="ot-badge">${s.otId}</span></td>
+                    <td><div style="font-weight: 600; color: var(--text-secondary);">${s.procedure || 'Surgical Procedure'}</div></td>
+                    <td><span class="status-badge ${s.status?.toLowerCase() || 'queued'}">${s.status || 'QUEUED'}</span></td>
+                    <td>
+                        <button class="btn-primary" style="padding: 10px 20px; font-size: 0.8rem; min-width: 120px; justify-content: center; border-radius: 8px;" 
+                                onclick="location.href='user-procedures.html?id=${s.id}'">
+                            CASE DETAILS
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        });
+    </script>
+</body>
+</html>

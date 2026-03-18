@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Institutional Intelligence | MediSync Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .chart-placeholder {
+            width: 100%; height: 350px; background: #f8fafc; border: 2px dashed var(--border); border-radius: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden;
+        }
+        .chart-placeholder i { font-size: 4rem; color: var(--primary); opacity: 0.1; margin-bottom: 20px; }
+        .chart-placeholder p { font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; }
+        
+        .log-entry {
+            display: grid;
+            grid-template-columns: 180px 120px 1fr;
+            padding: 1.2rem;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9rem;
+            align-items: center;
+        }
+        .log-entry:last-child { border-bottom: none; }
+        .log-time { color: var(--text-muted); font-family: monospace; font-weight: 600; }
+        .log-action { font-weight: 800; color: var(--primary); }
+        .log-details { color: var(--text-secondary); }
+    </style>
+</head>
+<body>
+    <div class="admin-layout">
+        <header class="top-bar-premium">
+            <div class="nav-brand">
+                <div class="logo-icon"><i class="fa-solid fa-hospital-user text-white"></i></div>
+                <span class="logo-text">MEDISYNC ADMIN</span>
+            </div>
+            
+            <nav class="header-nav-group">
+                <a href="admin-dashboard.html" class="header-link"><i class="fa-solid fa-gauge"></i> Dashboard</a>
+                <a href="admin-doctors.html" class="header-link"><i class="fa-solid fa-user-doctor"></i> Doctors</a>
+                <a href="admin-patients.html" class="header-link"><i class="fa-solid fa-hospital-user"></i> Patients</a>
+                <a href="admin-scheduler.html" class="header-link"><i class="fa-solid fa-calendar-plus"></i> Scheduler</a>
+                <a href="admin-rooms.html" class="header-link"><i class="fa-solid fa-door-open"></i> OT Status</a>
+                <a href="admin-analytics.html" class="header-link active"><i class="fa-solid fa-chart-line"></i> Analytics</a>
+            </nav>
+
+            <div class="portal-switcher">
+                <button class="portal-switch-btn">
+                    <i class="fa-solid fa-shuffle"></i> SWITCH PORTAL
+                </button>
+                <div class="portal-dropdown">
+                    <a href="admin-dashboard.html" class="portal-option active">
+                        <i class="fa-solid fa-user-shield"></i>
+                        <div>
+                            <p style="font-weight: 800; font-size: 0.9rem;">Admin Command</p>
+                            <p style="font-size: 0.7rem; color: var(--text-secondary);">Enterprise Management</p>
+                        </div>
+                    </a>
+                    <a href="user-dashboard.html" class="portal-option">
+                        <i class="fa-solid fa-user-doctor"></i>
+                        <div>
+                            <p style="font-weight: 800; font-size: 0.9rem;">Staff Portal</p>
+                            <p style="font-size: 0.7rem; color: var(--text-secondary);">Clinical Workspace</p>
+                        </div>
+                    </a>
+                    <a href="patient-dashboard.html" class="portal-option">
+                        <i class="fa-solid fa-hospital-user"></i>
+                        <div>
+                            <p style="font-weight: 800; font-size: 0.9rem;">Patient Portal</p>
+                            <p style="font-size: 0.7rem; color: var(--text-secondary);">Recovery Dashboard</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="user-profile">
+                <div class="admin-info" style="text-align: right; margin-right: 15px;">
+                    <span class="admin-name">Master Command</span>
+                    <span class="admin-role">Institutional Admin</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1559839734-2b71f1536783?auto=format&fit=crop&w=150&h=150&q=80" class="admin-avatar">
+                <a href="../index.html" class="btn-icon" style="margin-left: 15px; border: none; background: var(--bg-base); color: var(--danger);"><i class="fa-solid fa-right-from-bracket"></i></a>
+            </div>
+        </header>
+
+        <main class="main-wrap">
+            <header class="page-header" style="background: linear-gradient(135deg, #4f46e5 0%, #312e81 100%); padding: 3rem; border-radius: 20px; color: white; margin-bottom: 3rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 20px 40px rgba(79, 70, 229, 0.2);">
+                <div>
+                    <h1 style="font-size: 2.5rem; letter-spacing: -1.5px; color: white;">Reports & Monitoring</h1>
+                    <p style="color: hsla(0, 0%, 100%, 0.8); font-size: 1.1rem; font-weight: 500;">Predictive analytics, throughput metrics, and departmental diagnostics</p>
+                </div>
+                <button class="btn-primary" style="background: white; color: #4f46e5; padding: 15px 30px; font-weight: 800;" onclick="showToast('Exporting Clinical Audit Data...', 'info')">
+                    <i class="fa-solid fa-file-export" style="margin-right: 10px;"></i> EXPORT AUDIT
+                </button>
+            </header>
+
+            <div style="display: grid; grid-template-columns: 1fr 1.5fr; gap: 2.5rem; margin-bottom: 2.5rem;">
+                <!-- Efficiency Metrics -->
+                <div style="display: flex; flex-direction: column; gap: 2.5rem;">
+                    <div class="card-premium" style="padding: 2.5rem;">
+                        <h3 style="margin-bottom: 2rem; font-size: 1.25rem;">Surgery Volume Trends</h3>
+                        <div class="chart-placeholder">
+                            <i class="fa-solid fa-chart-line"></i>
+                            <p>Real-time Data Processing</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Audit System Log -->
+                <div class="card-premium" style="padding: 0; overflow: hidden; display: flex; flex-direction: column;">
+                    <div class="card-header-premium" style="padding: 2rem 2.5rem; border-bottom: 1px solid var(--border);">
+                        <div class="header-left">
+                            <h3 style="font-size: 1.25rem;">Institutional Audit Trail</h3>
+                            <p>Real-time logging of all administrative and surgical actions</p>
+                        </div>
+                        <span class="status-indicator live">LOGGING ACTIVE</span>
+                    </div>
+                    <div id="auditLogContainer" style="height: 400px; overflow-y: auto; background: white;">
+                        <!-- Logs inject here -->
+                        <div style="padding: 3rem; text-align: center; color: var(--text-muted);">
+                            <i class="fa-solid fa-satellite-dish fa-spin" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                            <p>Establishing secure connection to event stream...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <section class="card-premium" style="padding: 3rem;">
+                <div class="flex-between" style="margin-bottom: 3rem;">
+                    <div>
+                        <h3 style="font-size: 1.5rem;">Departmental Efficiency Breakdown</h3>
+                        <p style="color: var(--text-secondary); font-weight: 500;">Clinical throughput by specialized unit</p>
+                    </div>
+                    <span class="badge badge-success">STABLE PERFORMANCE</span>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 4rem; text-align: center;">
+                    <div>
+                        <p class="stat-label">Cardiovascular</p>
+                        <h2 class="stat-value" style="font-size: 3rem; margin: 1rem 0;">92%</h2>
+                        <p style="color: var(--success); font-size: 0.85rem; font-weight: 800;"><i class="fa-solid fa-caret-up"></i> +4.2% Growth</p>
+                    </div>
+                    <div style="border-left: 1px solid var(--border); border-right: 1px solid var(--border);">
+                        <p class="stat-label">Neurosurgery</p>
+                        <h2 class="stat-value" style="font-size: 3rem; margin: 1rem 0;">88%</h2>
+                        <p style="color: var(--text-muted); font-size: 0.85rem; font-weight: 800;"><i class="fa-solid fa-minus"></i> Resource Parity</p>
+                    </div>
+                    <div>
+                        <p class="stat-label">Orthopedics</p>
+                        <h2 class="stat-value" style="font-size: 3rem; margin: 1rem 0;">95%</h2>
+                        <p style="color: var(--success); font-size: 0.85rem; font-weight: 800;"><i class="fa-solid fa-caret-up"></i> +7.8% Peak</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="../js/main.js" type="module"></script>
+    <script type="module">
+        import { streamLogs } from '../js/firebase-service.js';
+        import { showToast } from '../js/main.js';
+        window.showToast = showToast;
+
+        const auditContainer = document.getElementById('auditLogContainer');
+
+        streamLogs((logs) => {
+            if (logs.length === 0) {
+                auditContainer.innerHTML = '<div style="padding: 3rem; text-align: center; color: var(--text-muted);"><p>No system events recorded yet.</p></div>';
+                return;
+            }
+
+            auditContainer.innerHTML = logs.map(log => {
+                const timeStr = log.timestamp ? log.timestamp.toLocaleTimeString() : 'N/A';
+                const dateStr = log.timestamp ? log.timestamp.toLocaleDateString() : '';
+                return `
+                    <div class="log-entry">
+                        <div class="log-time">${dateStr} ${timeStr}</div>
+                        <div class="log-action">${log.action}</div>
+                        <div class="log-details">
+                            <span style="color: var(--text-primary); font-weight: 700;">USER: ${log.user}</span> | 
+                            ${JSON.stringify(log.details).replace(/"/g, '').replace(/{|}/g, '')}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        });
+    </script>
+</body>
+</html>

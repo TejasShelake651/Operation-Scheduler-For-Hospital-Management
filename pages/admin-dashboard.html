@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Admin Dashboard | MediSync</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="admin-layout">
+        <header class="top-bar-premium">
+            <div class="nav-brand">
+                <div class="logo-icon"><i class="fa-solid fa-hospital-user text-white"></i></div>
+                <span class="logo-text">MEDISYNC ADMIN</span>
+            </div>
+            
+            <nav class="header-nav-group">
+                <a href="admin-dashboard.html" class="header-link active"><i class="fa-solid fa-gauge"></i> Dashboard</a>
+                <a href="admin-doctors.html" class="header-link"><i class="fa-solid fa-user-doctor"></i> Doctors</a>
+                <a href="admin-patients.html" class="header-link"><i class="fa-solid fa-hospital-user"></i> Patients</a>
+                <a href="admin-scheduler.html" class="header-link"><i class="fa-solid fa-calendar-plus"></i> Scheduler</a>
+                <a href="admin-rooms.html" class="header-link"><i class="fa-solid fa-door-open"></i> OT Status</a>
+                <a href="admin-analytics.html" class="header-link"><i class="fa-solid fa-chart-line"></i> Analytics</a>
+            </nav>
+
+            <div class="portal-switcher">
+                <button class="portal-switch-btn">
+                    <i class="fa-solid fa-shuffle"></i> SWITCH PORTAL
+                </button>
+                <div class="portal-dropdown">
+                    <a href="admin-dashboard.html" class="portal-option active">
+                        <i class="fa-solid fa-user-shield"></i>
+                        <div>
+                            <p style="font-weight: 800; font-size: 0.9rem;">Admin Command</p>
+                            <p style="font-size: 0.7rem; color: var(--text-secondary);">Enterprise Management</p>
+                        </div>
+                    </a>
+                    <a href="user-dashboard.html" class="portal-option">
+                        <i class="fa-solid fa-user-doctor"></i>
+                        <div>
+                            <p style="font-weight: 800; font-size: 0.9rem;">Staff Portal</p>
+                            <p style="font-size: 0.7rem; color: var(--text-secondary);">Clinical Workspace</p>
+                        </div>
+                    </a>
+                    <a href="patient-dashboard.html" class="portal-option">
+                        <i class="fa-solid fa-hospital-user"></i>
+                        <div>
+                            <p style="font-weight: 800; font-size: 0.9rem;">Patient Portal</p>
+                            <p style="font-size: 0.7rem; color: var(--text-secondary);">Recovery Dashboard</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="user-profile">
+                <div class="admin-info" style="text-align: right; margin-right: 15px;">
+                    <span class="admin-name">Master Command</span>
+                    <span class="admin-role">Institutional Admin</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1559839734-2b71f1536783?auto=format&fit=crop&w=150&h=150&q=80" class="admin-avatar">
+                <a href="../index.html" class="btn-icon" style="margin-left: 15px; border: none; background: var(--bg-base); color: var(--danger);"><i class="fa-solid fa-right-from-bracket"></i></a>
+            </div>
+        </header>
+
+        <main class="main-wrap">
+            <section class="premium-hero">
+                <div class="hero-content">
+                    <div class="badge-premium"><i class="fa-solid fa-shield-halved"></i> SYSTEM STABILIZED</div>
+                    <h1>MediSync <span class="gradient-text">Institutional Command</span></h1>
+                    <p>Enterprise-grade orchestration of surgical suites, clinical registries, and high-fidelity resource analytics.</p>
+                    <div class="action-row">
+                        <button class="btn-primary" onclick="window.location.href='admin-scheduler.html'">
+                            <i class="fa-solid fa-plus-circle"></i> NEW PROCEDURE
+                        </button>
+                        <button class="btn-white" onclick="showToast('Initiating System Diagnostic...', 'info')">
+                            <i class="fa-solid fa-microchip"></i> SYSTEM AUDIT
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="stat-grid">
+                <div class="stat-card premium">
+                    <div class="stat-icon-wrap blue">
+                        <i class="fa-solid fa-user-md"></i>
+                    </div>
+                    <div class="stat-info">
+                        <p class="stat-label">Total Doctors</p>
+                        <h2 class="stat-value">42</h2>
+                        <span class="stat-trend up"><i class="fa-solid fa-arrow-up"></i> 4.2%</span>
+                    </div>
+                </div>
+                <div class="stat-card premium">
+                    <div class="stat-icon-wrap emerald">
+                        <i class="fa-solid fa-hospital-user"></i>
+                    </div>
+                    <div class="stat-info">
+                        <p class="stat-label">Total Patients</p>
+                        <h2 class="stat-value">1,280</h2>
+                        <span class="stat-trend up"><i class="fa-solid fa-arrow-up"></i> 12%</span>
+                    </div>
+                </div>
+                <div class="stat-card premium">
+                    <div class="stat-icon-wrap amber">
+                        <i class="fa-solid fa-scalpel"></i>
+                    </div>
+                    <div class="stat-info">
+                        <p class="stat-label">Scheduled Surgeries</p>
+                        <h2 class="stat-value">18</h2>
+                        <span class="stat-trend">TODAY</span>
+                    </div>
+                </div>
+                <div class="stat-card premium">
+                    <div class="stat-icon-wrap violet">
+                        <i class="fa-solid fa-door-open"></i>
+                    </div>
+                    <div class="stat-info">
+                        <p class="stat-label">Available OTs</p>
+                        <h2 class="stat-value">04 <span class="stat-max">/ 16</span></h2>
+                        <span class="stat-trend warning">ACTIVE MONITOR</span>
+                    </div>
+                </div>
+            </section>
+
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2.5rem; margin-top: 3rem;">
+                <!-- Active OT Schedule Monitor -->
+                <section class="card-premium">
+                    <div class="card-header-premium">
+                        <div class="header-left">
+                            <h3>Live Surgical Queue</h3>
+                            <p>Real-time surgical progression tracking</p>
+                        </div>
+                        <div class="header-right">
+                            <span class="status-indicator live">LIVE UPDATES</span>
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table-premium">
+                            <thead>
+                                <tr>
+                                    <th>Surgery Date</th>
+                                    <th>Patient Name</th>
+                                    <th>Lead Surgeon</th>
+                                    <th>OT Number</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="liveSurgeryTable">
+                                <!-- Streamed content -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Activity Monitoring -->
+                <section class="card-premium">
+                    <div class="card-header-premium">
+                        <div class="header-left">
+                            <h3>Analytics Summary</h3>
+                            <p>Weekly throughput diagnostics</p>
+                        </div>
+                    </div>
+                    <div class="analytics-preview" style="padding: 2.5rem;">
+                        <div class="analytic-item">
+                            <div class="flex-between">
+                                <span style="font-weight: 600; font-size: 0.9rem;">Surgeries Per Day</span>
+                                <span class="val" style="font-weight: 800; color: var(--primary);">85%</span>
+                            </div>
+                            <div class="progress-bar" style="height: 8px; background: var(--bg-base); border-radius: 4px; margin-top: 10px; overflow: hidden;">
+                                <div class="progress-fill" style="width: 85%; height: 100%; background: var(--primary);"></div>
+                            </div>
+                        </div>
+                        <div class="analytic-item" style="margin-top: 2rem;">
+                            <div class="flex-between">
+                                <span style="font-weight: 600; font-size: 0.9rem;">OT Usage Efficiency</span>
+                                <span class="val" style="font-weight: 800; color: var(--success);">92%</span>
+                            </div>
+                            <div class="progress-bar" style="height: 8px; background: var(--bg-base); border-radius: 4px; margin-top: 10px; overflow: hidden;">
+                                <div class="progress-fill" style="width: 92%; height: 100%; background: var(--success);"></div>
+                            </div>
+                        </div>
+                        <button class="btn-white" style="width: 100%; margin-top: 2.5rem; justify-content: center;" onclick="window.location.href='admin-analytics.html'">VIEW FULL ANALYTICS</button>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/main.js" type="module"></script>
+    <script type="module">
+        import { streamSurgeries } from '../js/firebase-service.js';
+        import { showToast } from '../js/main.js';
+
+        streamSurgeries((surgeries) => {
+            const tbody = document.getElementById('liveSurgeryTable');
+            tbody.innerHTML = surgeries.map(s => `
+                <tr>
+                    <td><strong>${s.surgeryDate || 'Pending'}</strong></td>
+                    <td>
+                        <div class="patient-cell">
+                            <div class="p-initials">${s.patientName?.charAt(0) || 'P'}</div>
+                            <span>${s.patientName || 'Emergency Case'}</span>
+                        </div>
+                    </td>
+                    <td>Dr. ${s.leadSurgeon}</td>
+                    <td><span class="ot-badge">${s.otId}</span></td>
+                    <td><span class="status-badge ${s.status.toLowerCase().replace(' ', '-')}">${s.status}</span></td>
+                </tr>
+            `).join('');
+        });
+    </script>
+</body>
+</html>

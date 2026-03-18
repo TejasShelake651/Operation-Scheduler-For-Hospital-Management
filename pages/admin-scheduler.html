@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surgical Scheduler | MediSync Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="admin-layout">
+        <header class="top-bar-premium">
+            <div class="nav-brand">
+                <div class="logo-icon"><i class="fa-solid fa-hospital-user text-white"></i></div>
+                <span class="logo-text">MEDISYNC ADMIN</span>
+            </div>
+            
+            <nav class="header-nav-group">
+                <a href="admin-dashboard.html" class="header-link"><i class="fa-solid fa-gauge"></i> Dashboard</a>
+                <a href="admin-doctors.html" class="header-link"><i class="fa-solid fa-user-doctor"></i> Doctors</a>
+                <a href="admin-patients.html" class="header-link"><i class="fa-solid fa-hospital-user"></i> Patients</a>
+                <a href="admin-scheduler.html" class="header-link active"><i class="fa-solid fa-calendar-plus"></i> Scheduler</a>
+                <a href="admin-rooms.html" class="header-link"><i class="fa-solid fa-door-open"></i> OT Status</a>
+                <a href="admin-analytics.html" class="header-link"><i class="fa-solid fa-chart-line"></i> Analytics</a>
+            </nav>
+
+            <div class="portal-switcher">
+                <button class="portal-switch-btn">
+                    <i class="fa-solid fa-shuffle"></i> SWITCH PORTAL
+                </button>
+                <div class="portal-dropdown">
+                    <a href="admin-dashboard.html" class="portal-option active">
+                        <i class="fa-solid fa-user-shield"></i>
+                        <div>
+                            <p style="font-weight: 800; font-size: 0.9rem;">Admin Command</p>
+                            <p style="font-size: 0.7rem; color: var(--text-secondary);">Enterprise Management</p>
+                        </div>
+                    </a>
+                    <a href="user-dashboard.html" class="portal-option">
+                        <i class="fa-solid fa-user-doctor"></i>
+                        <div>
+                            <p style="font-weight: 800; font-size: 0.9rem;">Staff Portal</p>
+                            <p style="font-size: 0.7rem; color: var(--text-secondary);">Clinical Workspace</p>
+                        </div>
+                    </a>
+                    <a href="patient-dashboard.html" class="portal-option">
+                        <i class="fa-solid fa-hospital-user"></i>
+                        <div>
+                            <p style="font-weight: 800; font-size: 0.9rem;">Patient Portal</p>
+                            <p style="font-size: 0.7rem; color: var(--text-secondary);">Recovery Dashboard</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="user-profile">
+                <div class="admin-info" style="text-align: right; margin-right: 15px;">
+                    <span class="admin-name">Master Command</span>
+                    <span class="admin-role">Institutional Admin</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1559839734-2b71f1536783?auto=format&fit=crop&w=150&h=150&q=80" class="admin-avatar">
+                <a href="../index.html" class="btn-icon" style="margin-left: 15px; border: none; background: var(--bg-base); color: var(--danger);"><i class="fa-solid fa-right-from-bracket"></i></a>
+            </div>
+        </header>
+
+        <main class="main-wrap">
+            <header class="page-header" style="background: linear-gradient(135deg, var(--primary) 0%, #1e40af 100%); padding: 3rem; border-radius: 20px; color: white; margin-bottom: 3rem; display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h1 style="font-size: 2.5rem; letter-spacing: -1.5px; color: white;">Post Operation Schedule</h1>
+                    <p style="color: hsla(0, 0%, 100%, 0.8); font-size: 1.1rem; font-weight: 500;">Configure surgical parameters and staff allocation in real-time</p>
+                </div>
+                <button class="btn-primary" style="background: white; color: var(--primary); padding: 15px 30px; font-weight: 800;" onclick="document.getElementById('scheduleModal').style.display='flex'">
+                    <i class="fa-solid fa-calendar-plus" style="margin-right: 10px;"></i> INITIALIZE PROCEDURE
+                </button>
+            </header>
+
+            <section class="card-premium">
+                <div class="card-header-premium">
+                    <div class="header-left">
+                        <h3>Surgical Queue Monitor</h3>
+                        <p>Real-time theater monitoring and allocation registry</p>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table class="data-table-premium">
+                        <thead>
+                            <tr>
+                                <th>Surgery Date</th>
+                                <th>Patient Name</th>
+                                <th>Lead Surgeon</th>
+                                <th>OT Number</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="surgeryTableBody">
+                            <!-- Dynamic Content -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Post Operation Schedule Modal -->
+    <div id="scheduleModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(15, 23, 42, 0.6); backdrop-filter: blur(10px); z-index:2000; align-items:center; justify-content:center; overflow-y: auto; padding: 2rem 0;">
+        <div class="card" style="width: 1000px; padding: 4rem; border-radius: var(--radius-lg); position: relative; margin: auto;">
+            <div class="flex-between" style="margin-bottom: 2rem;">
+                <div>
+                    <h2 style="font-size: 2rem; color: var(--text-primary); letter-spacing: -1px;">Clinical Procedure Specification</h2>
+                    <p style="color: var(--text-secondary); font-weight: 500;">Comprehensive surgical parameters and resource orchestration</p>
+                </div>
+                <button onclick="document.getElementById('scheduleModal').style.display='none'" style="background:none; border:none; font-size: 2rem; color: var(--text-muted); cursor:pointer;">&times;</button>
+            </div>
+
+            <form id="operationScheduleForm">
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem;">
+                    <!-- Column 1: Core Info -->
+                    <div>
+                        <div class="form-group" style="margin-bottom: 1.2rem;">
+                            <label class="form-label-premium">Patient Name</label>
+                            <input type="text" id="patientName" class="form-input" placeholder="e.g. Robert Wilson" required style="height: 50px; border-radius: 10px;">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 1.2rem;">
+                            <label class="form-label-premium">Lead Surgeon</label>
+                            <select id="doctorName" class="form-input" style="height: 50px; border-radius: 10px;">
+                                <option>Dr. Sarah Chen (Neuro)</option>
+                                <option>Dr. James Miller (Cardiac)</option>
+                                <option>Dr. Julian Moore (Ortho)</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 1.2rem;">
+                            <label class="form-label-premium">Assistant Surgeon</label>
+                            <input type="text" id="assistantSurgeon" class="form-input" placeholder="e.g. Dr. Kevin Park" style="height: 50px; border-radius: 10px;">
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label class="form-label-premium">Date</label>
+                                <input type="date" id="surgeryDate" class="form-input" required style="height: 50px; border-radius: 10px;">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label-premium">Time</label>
+                                <input type="time" id="surgeryTime" class="form-input" required style="height: 50px; border-radius: 10px;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 2: Staff & Vitals -->
+                    <div>
+                        <div class="form-group" style="margin-bottom: 1.2rem;">
+                            <label class="form-label-premium">Anesthesia Type</label>
+                            <select id="anesthesiaType" class="form-input" style="height: 50px; border-radius: 10px;">
+                                <option>General Anesthesia</option>
+                                <option>Regional Anesthesia</option>
+                                <option>Local Anesthesia</option>
+                                <option>MAC (Sedation)</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 1.2rem;">
+                            <label class="form-label-premium">Anesthesiologist</label>
+                            <input type="text" id="anesthesiologistName" class="form-input" placeholder="Dr. Elena Rodriguez" style="height: 50px; border-radius: 10px;">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 1.2rem;">
+                            <label class="form-label-premium">Suite Allocation (OT)</label>
+                            <select id="otId" class="form-input" style="height: 50px; border-radius: 10px;">
+                                <option>OT-04-A</option>
+                                <option>OT-01-B</option>
+                                <option>OT-02-C</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 1.2rem;">
+                            <label class="form-label-premium">Nurses Involved</label>
+                            <input type="text" id="nursesInvolved" class="form-input" placeholder="e.g. Alpha, Bravo, Charlie" style="height: 50px; border-radius: 10px;">
+                        </div>
+                    </div>
+
+                    <!-- Column 3: Resources & Remarks -->
+                    <div>
+                        <div class="form-group" style="margin-bottom: 1.2rem;">
+                            <label class="form-label-premium">Special Instruments/Materials</label>
+                            <input type="text" id="specialMaterials" class="form-input" placeholder="e.g. Robotic Kit 4, Heart-Lung Machine" style="height: 50px; border-radius: 10px;">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 1.2rem;">
+                            <label class="form-label-premium">Required Drugs (Emergency/Specific)</label>
+                            <input type="text" id="requiredDrugs" class="form-input" placeholder="e.g. Epinephrine, Atropine" style="height: 50px; border-radius: 10px;">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 1.2rem;">
+                            <label class="form-label-premium">Clinical Remarks & Protocols</label>
+                            <textarea id="doctorRemarks" class="form-input" style="height: 100px; border-radius: 10px; border: 2px solid var(--border); padding-top: 15px; resize: none;" placeholder="Standard operational protocols observe..."></textarea>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 2rem;">
+                            <label class="form-label-premium">Operative Report Transcription</label>
+                            <textarea id="operativeReport" class="form-input" style="height: 180px; border-radius: 10px; border: 2px solid var(--border); padding-top: 15px; resize: none;" placeholder="Full surgical narrative and procedure details..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 3rem; display: grid; grid-template-columns: 1fr 2fr; gap: 1rem;">
+                    <button type="button" class="btn-white" style="height: 60px; font-weight: 800; border-radius: 15px;" onclick="document.getElementById('scheduleModal').style.display='none'">CANCEL ALLOCATION</button>
+                    <button type="submit" class="btn-primary" style="height: 60px; justify-content: center; font-size: 1.1rem; border-radius: 15px;">FINALIZE SURGICAL SCHEDULE <i class="fa-solid fa-check-double" style="margin-left: 10px;"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/main.js" type="module"></script>
+    <script type="module">
+        import { addSurgery, streamSurgeries, deleteSurgery, updateSurgeryStatus } from '../js/firebase-service.js';
+        import { logAction, ACTIONS } from '../js/logger.js';
+        import { showToast } from '../js/main.js';
+
+        document.getElementById('operationScheduleForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> SYNCING...';
+            btn.disabled = true;
+
+            const data = {
+                patientName: document.getElementById('patientName').value,
+                leadSurgeon: document.getElementById('doctorName').value,
+                assistantSurgeon: document.getElementById('assistantSurgeon').value,
+                surgeryDate: document.getElementById('surgeryDate').value,
+                surgeryTime: document.getElementById('surgeryTime').value,
+                anesthesiaType: document.getElementById('anesthesiaType').value,
+                anesthesiologist: document.getElementById('anesthesiologistName').value,
+                otId: document.getElementById('otId').value,
+                nurses: document.getElementById('nursesInvolved').value,
+                materials: document.getElementById('specialMaterials').value,
+                drugs: document.getElementById('requiredDrugs').value,
+                remarks: document.getElementById('doctorRemarks').value,
+                report: document.getElementById('operativeReport').value,
+                status: 'SCHEDULED'
+            };
+
+            try {
+                await addSurgery(data);
+                await logAction(ACTIONS.ADD_SURGERY, 'ADMIN', { patient: data.patientName, otId: data.otId });
+                showToast('Clinical Schedule Synchronized', 'success');
+                document.getElementById('scheduleModal').style.display = 'none';
+                e.target.reset();
+            } catch (err) {
+                showToast('Platform Sync Failed', 'danger');
+            } finally {
+                btn.innerHTML = 'FINALIZE SURGICAL SCHEDULE <i class="fa-solid fa-check-double" style="margin-left: 10px;"></i>';
+                btn.disabled = false;
+            }
+        });
+
+        streamSurgeries((surgeries) => {
+            const tbody = document.getElementById('surgeryTableBody');
+            tbody.innerHTML = surgeries.map(s => `
+                <tr>
+                    <td><strong>${s.surgeryDate} | ${s.surgeryTime}</strong></td>
+                    <td>
+                        <div class="patient-cell">
+                            <div class="p-initials">${s.patientName?.charAt(0) || 'P'}</div>
+                            <span>${s.patientName}</span>
+                        </div>
+                    </td>
+                    <td>${s.leadSurgeon}</td>
+                    <td><span class="ot-badge">${s.otId}</span></td>
+                    <td><span class="status-badge ${s.status.toLowerCase()}">${s.status}</span></td>
+                    <td>
+                        <div style="display: flex; gap: 8px;">
+                            <button class="btn-icon" style="color: var(--success);" onclick="window.updateStatus('${s.id}', '${s.patientName}', 'COMPLETED')"><i class="fa-solid fa-circle-check"></i></button>
+                            <button class="btn-icon" style="color: var(--danger);" onclick="window.removeSurgery('${s.id}', '${s.patientName}')"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        });
+
+        window.removeSurgery = async (id, patient) => {
+            if(confirm('Terminate this surgical allocation?')) {
+                await deleteSurgery(id);
+                await logAction(ACTIONS.DELETE_SURGERY, 'ADMIN', { id, patient });
+                showToast('Allocation Terminated', 'info');
+            }
+        };
+
+        window.updateStatus = async (id, patient, status) => {
+            await updateSurgeryStatus(id, status);
+            await logAction(ACTIONS.UPDATE_SURGERY, 'ADMIN', { id, patient, status });
+            showToast(`Status updated to ${status}`, 'success');
+        };
+    </script>
+</body>
+</html>

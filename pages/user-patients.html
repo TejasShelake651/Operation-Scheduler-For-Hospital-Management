@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patients Registry | MediSync Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Persistent Header for Institutional Staff -->
+        <header class="top-bar-premium">
+            <div class="nav-brand">
+                <div class="logo-icon" style="background: var(--primary);"><i class="fa-solid fa-user-doctor text-white"></i></div>
+                <span class="logo-text">STAFF PORTAL</span>
+            </div>
+            
+            <nav class="header-nav-group">
+                <a href="user-dashboard.html" class="header-link"><i class="fa-solid fa-gauge"></i> Dashboard</a>
+                <a href="user-patients.html" class="header-link active"><i class="fa-solid fa-hospital-user"></i> Patients</a>
+                <a href="user-procedures.html" class="header-link"><i class="fa-solid fa-stethoscope"></i> Procedures</a>
+                <a href="user-reports.html" class="header-link"><i class="fa-solid fa-chart-line"></i> Repository</a>
+            </nav>
+
+            <div class="user-profile">
+                <div class="admin-info" style="text-align: right; margin-right: 15px;">
+                    <span class="admin-name">Dr. Julian Moore</span>
+                    <span class="admin-role">Lead Practitioner</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=150&h=150&q=80" class="admin-avatar">
+                <a href="../index.html" class="btn-icon" style="margin-left: 15px; border: none; background: var(--bg-base); color: var(--danger);"><i class="fa-solid fa-right-from-bracket"></i></a>
+            </div>
+        </header>
+
+        <main class="main-wrap">
+            <header class="page-header" style="background: linear-gradient(135deg, #4f46e5 0%, #1e40af 100%); padding: 3rem; border-radius: 20px; color: white; margin-bottom: 3rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 20px 40px var(--primary-glow);">
+                <div>
+                    <h1 style="font-size: 2.5rem; letter-spacing: -1.5px; color: white;">Institutional Patient Registry</h1>
+                    <p style="color: hsla(0, 0%, 100%, 0.8); font-size: 1.1rem; font-weight: 500;">Access clinical records and hospitalization status across departments</p>
+                </div>
+                <button class="btn-primary" style="background: white; color: var(--primary); padding: 15px 30px; font-weight: 800; border-radius: 12px;" onclick="showToast('Connecting to Central EHR...', 'info')">
+                    <i class="fa-solid fa-database" style="margin-right: 10px;"></i> SYNC EHR SYSTEM
+                </button>
+            </header>
+
+            <section class="card-premium">
+                <div class="card-header-premium" style="padding: 2.5rem;">
+                    <div class="header-left">
+                        <h3>Patient Clinical Directory</h3>
+                        <p>Real-time clinical data from organizational registries</p>
+                    </div>
+                    <div class="header-right">
+                        <input type="text" id="patientSearch" placeholder="Search by name, ID or ward..." class="form-input" style="width: 350px; margin-bottom: 0; border-radius: 12px; height: 50px; border: 2px solid var(--border);">
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table class="data-table-premium">
+                        <thead>
+                            <tr>
+                                <th>Patient ID</th>
+                                <th>Patient Name</th>
+                                <th>Clinical Status / Ward</th>
+                                <th>Diagnosis</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="patientTableBody">
+                            <!-- Dynamic Content -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="../js/main.js" type="module"></script>
+    <script type="module">
+        import { streamPatients } from '../js/firebase-service.js';
+        import { showToast } from '../js/main.js';
+        
+        streamPatients((patients) => {
+            const tbody = document.getElementById('patientTableBody');
+            tbody.innerHTML = patients.map(p => `
+                <tr>
+                    <td><span class="ot-badge">#${p.patientId || p.id.substring(0,6)}</span></td>
+                    <td>
+                        <div class="patient-cell">
+                            <div class="p-initials">${p.name?.charAt(0) || 'P'}</div>
+                            <span style="font-weight: 700;">${p.name}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div style="font-weight: 600;">${p.ward || 'General ward'}</div>
+                        <span class="status-badge ${p.status?.toLowerCase() === 'critical' ? 'critical' : 'stable'}">${p.status || 'STABLE'}</span>
+                    </td>
+                    <td><div style="color: var(--text-secondary); font-weight: 600;">${p.condition || 'General Observation'}</div></td>
+                    <td>
+                        <button class="btn-primary" style="padding: 10px 20px; font-size: 0.75rem; border-radius: 8px;">VIEW CLINICAL RECORD</button>
+                    </td>
+                </tr>
+            `).join('');
+        });
+
+        const search = document.getElementById('patientSearch');
+        search.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            const rows = document.querySelectorAll('#patientTableBody tr');
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(term) ? '' : 'none';
+            });
+        });
+    </script>
+</body>
+</html>

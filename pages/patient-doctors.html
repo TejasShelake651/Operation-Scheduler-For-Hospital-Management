@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Specialists | MediSync Patient</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Unified Top Header for Patient Portfolio -->
+        <header class="top-bar-premium">
+            <div class="nav-brand">
+                <div class="logo-icon" style="background: var(--primary);"><i class="fa-solid fa-heart-pulse text-white"></i></div>
+                <span class="logo-text">PATIENT PORTAL</span>
+            </div>
+            
+            <nav class="header-nav-group">
+                <a href="patient-dashboard.html" class="header-link"><i class="fa-solid fa-gauge"></i> My Dashboard</a>
+                <a href="patient-surgeries.html" class="header-link"><i class="fa-solid fa-scalpel"></i> Surgery Info</a>
+                <a href="patient-doctors.html" class="header-link active"><i class="fa-solid fa-user-doctor"></i> Specialists</a>
+                <a href="patient-reports.html" class="header-link"><i class="fa-solid fa-file-medical"></i> My Reports</a>
+            </nav>
+
+
+            <div class="user-profile">
+                <div class="admin-info" style="text-align: right; margin-right: 15px;">
+                    <span class="admin-name">Robert Wilson</span>
+                    <span class="admin-role">Institutional Patient</span>
+                </div>
+                <div class="p-initials" style="width: 45px; height: 45px; font-size: 1rem; background: var(--primary-soft); color: var(--primary); border: 2px solid var(--primary);">RW</div>
+                <a href="../index.html" class="btn-icon" style="margin-left: 15px; border: none; background: var(--bg-base); color: var(--danger);"><i class="fa-solid fa-right-from-bracket"></i></a>
+            </div>
+        </header>
+
+        <main class="main-wrap">
+            <header class="page-header" style="margin-bottom: 4rem;">
+                <div>
+                    <h1 style="font-size: 2.5rem; letter-spacing: -1.5px; color: var(--text-primary);">Medical Faculty Directory</h1>
+                    <p style="color: var(--text-secondary); font-size: 1.1rem; font-weight: 500;">Connect with our world-class surgical specialists and clinical leads</p>
+                </div>
+            </header>
+
+            <div id="doctorsGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 3rem;">
+                <!-- Dynamic Doctor Cards -->
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/main.js" type="module"></script>
+    <script type="module">
+        import { streamDoctors } from '../js/firebase-service.js';
+        import { showToast } from '../js/main.js';
+        window.showToast = showToast;
+        
+        const grid = document.getElementById('doctorsGrid');
+
+        streamDoctors((doctors) => {
+            if(doctors.length === 0) {
+                grid.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 5rem; background: var(--bg-base); border-radius: 24px; border: 2px dashed var(--border);">
+                        <i class="fa-solid fa-user-md" style="font-size: 4rem; color: var(--text-muted); opacity: 0.3; margin-bottom: 2rem;"></i>
+                        <h3 style="color: var(--text-secondary); font-weight: 700;">Faculty records are currently being synchronized...</h3>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = doctors.map(doc => `
+                <div class="card-premium" style="padding: 3rem; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: 2px solid transparent;" onmouseover="this.style.borderColor='var(--primary-soft)'" onmouseout="this.style.borderColor='transparent'">
+                    <div style="display: flex; gap: 20px; align-items: start; margin-bottom: 3rem;">
+                        <div style="width: 85px; height: 85px; border-radius: 24px; background: var(--bg-base); display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 10px 20px rgba(0,0,0,0.05);">
+                             <i class="fa-solid fa-user-doctor" style="font-size: 2.5rem; color: var(--primary);"></i>
+                        </div>
+                        <div>
+                            <h3 style="font-size: 1.5rem; margin-bottom: 8px; font-weight: 800; letter-spacing: -0.5px;">Dr. ${doc.name}</h3>
+                            <span class="badge" style="background: var(--primary-soft); color: var(--primary); font-weight: 800; font-size: 0.8rem; padding: 6px 12px; border-radius: 8px;">${doc.specialization || 'Clinical Specialist'}</span>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 20px; border-top: 1px solid var(--border); padding-top: 2rem;">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.95rem;">
+                            <span style="color: var(--text-muted); font-weight: 800; letter-spacing: 0.5px;">FACULTY TENURE</span>
+                            <span style="font-weight: 900; color: var(--text-primary);">${doc.experience || '12+'} Years</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; font-size: 0.95rem;">
+                            <span style="color: var(--text-muted); font-weight: 800; letter-spacing: 0.5px;">INTERNAL COMMS</span>
+                            <span style="font-weight: 900; color: var(--primary);">${doc.contact || 'SECURE PROTOCOL'}</span>
+                        </div>
+                    </div>
+                    
+                    <button class="btn-primary" style="width: 100%; margin-top: 3rem; justify-content: center; border-radius: 12px; height: 60px; font-weight: 800;" onclick="window.showToast('Connecting to clinical scheduler...', 'info')">
+                        REQUEST CONSULTATION <i class="fa-solid fa-calendar-check" style="margin-left: 10px;"></i>
+                    </button>
+                </div>
+            `).join('');
+        });
+    </script>
+</body>
+</html>
