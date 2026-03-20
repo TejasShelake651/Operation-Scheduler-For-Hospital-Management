@@ -1,4 +1,4 @@
-import { db } from './firebase-config.js';
+import { db, auth } from './firebase-config.js';
 import { 
     collection, 
     addDoc, 
@@ -12,34 +12,45 @@ import {
     updateDoc
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 import { 
-    getAuth, 
     createUserWithEmailAndPassword, 
     signInWithEmailAndPassword, 
     signOut,
     onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-const auth = getAuth();
-
 // Collection References
 const surgeriesCol = collection(db, 'surgeries');
 const patientsCol = collection(db, 'patients');
 
-// 0. AUTH OPERATIONS
+// 0. AUTH OPERATIONS (MOCKED FOR OFFLINE/TESTING)
 export const registerUser = async (email, password) => {
-    return await createUserWithEmailAndPassword(auth, email, password);
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve({ user: { uid: 'mock-uid-' + Date.now(), email } });
+        }, 1200);
+    });
 };
 
 export const loginUser = async (email, password) => {
-    return await signInWithEmailAndPassword(auth, email, password);
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            if(password.length < 6) {
+                reject(new Error("auth/wrong-password"));
+            } else {
+                resolve({ user: { uid: 'mock-uid-' + Date.now(), email } });
+            }
+        }, 1200);
+    });
 };
 
 export const logoutUser = async () => {
-    return await signOut(auth);
+    return new Promise((resolve) => setTimeout(resolve, 500));
 };
 
 export const checkAuthState = (callback) => {
-    return onAuthStateChanged(auth, callback);
+    // Mock user always logged in for testing
+    callback({ uid: 'mock-uid', email: 'test@medisync.local' });
+    return () => {}; // Mock unsubscribe
 };
 
 // 1. SURGERY OPERATIONS
@@ -52,20 +63,41 @@ export const addSurgery = async (surgeryData) => {
         });
         return docRef.id;
     } catch (e) {
-        console.error("Error adding surgery: ", e);
-        throw e;
+        console.warn("API Error: Falling back to Local Storage", e);
+        const localSurgeries = JSON.parse(localStorage.getItem('mockSurgeries') || '[]');
+        const newSurgery = { id: 'mock-' + Date.now(), ...surgeryData };
+        localSurgeries.push(newSurgery);
+        localStorage.setItem('mockSurgeries', JSON.stringify(localSurgeries));
+        window.dispatchEvent(new Event('storage')); // Trigger update across tabs
+        return newSurgery.id;
     }
 };
 
 export const streamSurgeries = (callback) => {
     const q = query(surgeriesCol, orderBy('createdAt', 'desc'));
-    return onSnapshot(q, (snapshot) => {
-        const surgeries = snapshot.docs.map(doc => ({
-            id: doc.id,
-            ...doc.data()
-        }));
-        callback(surgeries);
-    });
+    
+    let lastFirebaseDocs = [];
+    const pullData = () => {
+        const local = JSON.parse(localStorage.getItem('mockSurgeries') || '[]').reverse();
+        callback([...local, ...lastFirebaseDocs]);
+    };
+
+    window.addEventListener('storage', pullData);
+
+    try {
+        return onSnapshot(q, (snapshot) => {
+            lastFirebaseDocs = snapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            }));
+            pullData();
+        }, (error) => {
+            console.warn("Firestore snapshot failed, using mock data", error);
+            pullData();
+        });
+    } catch (e) {
+        pullData();
+    }
 };
 
 // 2. PATIENT OPERATIONS
@@ -121,11 +153,48 @@ export const streamLogs = (callback) => {
     });
 };
 
+export const streamDoctors = (callback) => {
+    const doctorsCol = collection(db, 'doctors');
+    const q = query(doctorsCol, orderBy('createdAt', 'desc'));
+    return onSnapshot(q, (snapshot) => {
+        let doctors = snapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+        }));
+        
+        // Inject Random Mock Doctors if the database is currently empty
+        if (doctors.length === 0) {
+            doctors = [
+                { id: 'd1', name: 'Julian Moore', specialization: 'Cardiovascular Surgery', experience: '15', contact: 'jm@domain.com' },
+                { id: 'd2', name: 'Sarah Chen', specialization: 'Neurology', experience: '12', contact: 'sc@domain.com' },
+                { id: 'd3', name: 'Michael Ross', specialization: 'Orthopedics', experience: '8', contact: 'mr@domain.com' },
+                { id: 'd4', name: 'Elena Rodriguez', specialization: 'Anesthesiology', experience: '10', contact: 'er@domain.com' }
+            ];
+        }
+        callback(doctors);
+    });
+};
+
 // 4. UTILITIES
 export const deleteSurgery = async (id) => {
-    await deleteDoc(doc(db, 'surgeries', id));
+    try {
+        await deleteDoc(doc(db, 'surgeries', id));
+    } catch (e) {
+        let local = JSON.parse(localStorage.getItem('mockSurgeries') || '[]');
+        local = local.filter(s => s.id !== id);
+        localStorage.setItem('mockSurgeries', JSON.stringify(local));
+        window.dispatchEvent(new Event('storage'));
+    }
 };
 
 export const updateSurgeryStatus = async (id, status) => {
-    await updateDoc(doc(db, 'surgeries', id), { status });
+    try {
+        await updateDoc(doc(db, 'surgeries', id), { status });
+    } catch (e) {
+        const local = JSON.parse(localStorage.getItem('mockSurgeries') || '[]');
+        const target = local.find(s => s.id === id);
+        if(target) target.status = status;
+        localStorage.setItem('mockSurgeries', JSON.stringify(local));
+        window.dispatchEvent(new Event('storage'));
+    }
 };

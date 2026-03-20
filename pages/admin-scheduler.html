@@ -25,35 +25,6 @@
                 <a href="admin-analytics.html" class="header-link"><i class="fa-solid fa-chart-line"></i> Analytics</a>
             </nav>
 
-            <div class="portal-switcher">
-                <button class="portal-switch-btn">
-                    <i class="fa-solid fa-shuffle"></i> SWITCH PORTAL
-                </button>
-                <div class="portal-dropdown">
-                    <a href="admin-dashboard.html" class="portal-option active">
-                        <i class="fa-solid fa-user-shield"></i>
-                        <div>
-                            <p style="font-weight: 800; font-size: 0.9rem;">Admin Command</p>
-                            <p style="font-size: 0.7rem; color: var(--text-secondary);">Enterprise Management</p>
-                        </div>
-                    </a>
-                    <a href="user-dashboard.html" class="portal-option">
-                        <i class="fa-solid fa-user-doctor"></i>
-                        <div>
-                            <p style="font-weight: 800; font-size: 0.9rem;">Staff Portal</p>
-                            <p style="font-size: 0.7rem; color: var(--text-secondary);">Clinical Workspace</p>
-                        </div>
-                    </a>
-                    <a href="patient-dashboard.html" class="portal-option">
-                        <i class="fa-solid fa-hospital-user"></i>
-                        <div>
-                            <p style="font-weight: 800; font-size: 0.9rem;">Patient Portal</p>
-                            <p style="font-size: 0.7rem; color: var(--text-secondary);">Recovery Dashboard</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
             <div class="user-profile">
                 <div class="admin-info" style="text-align: right; margin-right: 15px;">
                     <span class="admin-name">Master Command</span>
@@ -186,12 +157,20 @@
                             <input type="text" id="requiredDrugs" class="form-input" placeholder="e.g. Epinephrine, Atropine" style="height: 50px; border-radius: 10px;">
                         </div>
                         <div class="form-group" style="margin-bottom: 1.2rem;">
-                            <label class="form-label-premium">Clinical Remarks & Protocols</label>
-                            <textarea id="doctorRemarks" class="form-input" style="height: 100px; border-radius: 10px; border: 2px solid var(--border); padding-top: 15px; resize: none;" placeholder="Standard operational protocols observe..."></textarea>
+                            <label class="form-label-premium">Pre & Post-Operative Event Tracking</label>
+                            <textarea id="eventTracking" class="form-input" style="height: 60px; border-radius: 10px; border: 2px solid var(--border); padding-top: 15px; resize: none;" placeholder="Track BP spikes, fasting logs, recovery notes..."></textarea>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 1.2rem;">
+                            <label class="form-label-premium">Attach Surgical Reports / Patient Chart</label>
+                            <input type="file" id="reportAttachment" class="form-input" style="height: 50px; border-radius: 10px; padding: 12px; font-size: 0.85rem;" accept=".pdf,.doc,.docx,.png,.jpg">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 1.2rem;">
+                            <label class="form-label-premium">Clinical Remarks & Doctor Protocols</label>
+                            <textarea id="doctorRemarks" class="form-input" style="height: 60px; border-radius: 10px; border: 2px solid var(--border); padding-top: 15px; resize: none;" placeholder="Standard operational protocols observe..."></textarea>
                         </div>
                         <div class="form-group" style="margin-bottom: 2rem;">
                             <label class="form-label-premium">Operative Report Transcription</label>
-                            <textarea id="operativeReport" class="form-input" style="height: 180px; border-radius: 10px; border: 2px solid var(--border); padding-top: 15px; resize: none;" placeholder="Full surgical narrative and procedure details..."></textarea>
+                            <textarea id="operativeReport" class="form-input" style="height: 100px; border-radius: 10px; border: 2px solid var(--border); padding-top: 15px; resize: none;" placeholder="Full surgical narrative and procedure details..."></textarea>
                         </div>
                     </div>
                 </div>
@@ -209,6 +188,18 @@
         import { addSurgery, streamSurgeries, deleteSurgery, updateSurgeryStatus } from '../js/firebase-service.js';
         import { logAction, ACTIONS } from '../js/logger.js';
         import { showToast } from '../js/main.js';
+
+        // Listen for direct Room-Booking requests from the OT Status Dashboard
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const targetRoom = urlParams.get('room');
+            if(targetRoom) {
+                document.getElementById('otId').value = targetRoom;
+                document.getElementById('scheduleModal').style.display = 'flex';
+                // Remove the URL parameter cleanly after populating
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+        });
 
         document.getElementById('operationScheduleForm').addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -228,6 +219,7 @@
                 nurses: document.getElementById('nursesInvolved').value,
                 materials: document.getElementById('specialMaterials').value,
                 drugs: document.getElementById('requiredDrugs').value,
+                eventTracking: document.getElementById('eventTracking').value,
                 remarks: document.getElementById('doctorRemarks').value,
                 report: document.getElementById('operativeReport').value,
                 status: 'SCHEDULED'

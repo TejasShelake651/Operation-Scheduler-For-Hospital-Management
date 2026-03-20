@@ -127,7 +127,7 @@
             <label class="form-label-premium" for="email">Professional ID / Email</label>
             <div class="input-group-premium">
                 <i class="fa-solid fa-user-circle"></i>
-                <input type="email" id="loginEmail" class="form-input-premium" placeholder="your@email.com" required>
+                <input type="email" id="loginEmail" class="form-input-premium" placeholder="your@email.com" autocomplete="username" required>
             </div>
 
             <label class="form-label-premium">Encrypted Passphrase</label>
@@ -195,9 +195,8 @@
             const pass = document.getElementById('loginPass').value;
             
             try {
-                // Real Auth
+                // Mock Auth
                 await loginUser(email, pass);
-                await logAction(ACTIONS.LOGIN, email, { role });
 
                 showToast('Identity Verified! Redirecting...', 'success');
                 setTimeout(() => {

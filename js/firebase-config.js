@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+import { getAnalytics, isSupported } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
@@ -16,7 +16,21 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+
+// Initialize Analytics safely
+let analytics = null;
+isSupported().then(supported => {
+  if (supported) {
+    try {
+      analytics = getAnalytics(app);
+    } catch (e) {
+      console.warn("Firebase Analytics could not be initialized:", e);
+    }
+  }
+}).catch(err => {
+  console.warn("Firebase Analytics is not supported in this environment:", err);
+});
+
 const auth = getAuth(app);
 const db = getFirestore(app);
 

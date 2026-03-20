@@ -522,6 +522,46 @@ body {
     color: var(--text-primary);
 }
 
+/* --- Form & Input Elements --- */
+.form-input {
+    width: 100%;
+    padding: 0 20px;
+    background: var(--bg-base);
+    border: 2px solid var(--border);
+    font-family: var(--font-main);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-sizing: border-box;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--primary) !important;
+    background: white !important;
+    box-shadow: 0 0 0 4px var(--primary-soft);
+}
+
+.form-input::placeholder {
+    color: var(--text-muted);
+    font-weight: 400;
+}
+
+.form-label-premium {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
 /* --- Interactive Elements --- */
 .btn-primary {
     background: var(--primary);

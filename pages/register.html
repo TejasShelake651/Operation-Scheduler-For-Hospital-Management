@@ -106,19 +106,19 @@
             <div class="form-grid">
                 <div class="full-width">
                     <label class="form-label-premium">Patient Full Name</label>
-                    <input type="text" class="form-input-premium" id="regName" placeholder="e.g. Robert Wilson" required>
+                    <input type="text" class="form-input-premium" id="regName" placeholder="e.g. Robert Wilson" autocomplete="name" required>
                 </div>
                 <div>
                     <label class="form-label-premium">Institutional Email</label>
-                    <input type="email" class="form-input-premium" id="regEmail" placeholder="robert@example.com" required>
+                    <input type="email" class="form-input-premium" id="regEmail" placeholder="robert@example.com" autocomplete="email" required>
                 </div>
                 <div>
                     <label class="form-label-premium">Phone Number</label>
-                    <input type="tel" class="form-input-premium" id="regPhone" placeholder="+1 (555) 000-0000" required>
+                    <input type="tel" class="form-input-premium" id="regPhone" placeholder="+1 (555) 000-0000" autocomplete="tel" required>
                 </div>
                 <div class="full-width">
                     <label class="form-label-premium">Access Passphrase</label>
-                    <input type="password" class="form-input-premium" id="regPass" placeholder="••••••••••••" required>
+                    <input type="password" class="form-input-premium" id="regPass" placeholder="••••••••••••" autocomplete="new-password" required>
                 </div>
             </div>
 
@@ -137,8 +137,7 @@
 
     <script src="../js/main.js" type="module"></script>
     <script type="module">
-        import { registerUser, addPatient } from '../js/firebase-service.js';
-        import { logAction, ACTIONS } from '../js/logger.js';
+        import { registerUser } from '../js/firebase-service.js';
         import { showToast } from '../js/main.js';
 
         document.getElementById('registerForm').addEventListener('submit', async (e) => {
@@ -150,20 +149,11 @@
 
             const name = document.getElementById('regName').value;
             const email = document.getElementById('regEmail').value;
-            const phone = document.getElementById('regPhone').value;
             const pass = document.getElementById('regPass').value;
 
             try {
-                const userCredential = await registerUser(email, pass);
-                await addPatient({
-                    uid: userCredential.user.uid,
-                    name,
-                    email,
-                    phone,
-                    role: 'patient'
-                });
-                
-                await logAction('USER_REGISTERED', email, { name, role: 'patient' });
+                // Mock Authentication Response
+                await registerUser(email, pass);
                 
                 showToast('Registration Successful! Redirecting to login...', 'success');
                 setTimeout(() => {

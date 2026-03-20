@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -24,35 +24,6 @@
                 <a href="user-reports.html" class="header-link"><i class="fa-solid fa-chart-line"></i> Repository</a>
             </nav>
 
-            <div class="portal-switcher">
-                <button class="portal-switch-btn">
-                    <i class="fa-solid fa-shuffle"></i> SWITCH PORTAL
-                </button>
-                <div class="portal-dropdown">
-                    <a href="admin-dashboard.html" class="portal-option">
-                        <i class="fa-solid fa-user-shield"></i>
-                        <div>
-                            <p style="font-weight: 800; font-size: 0.9rem;">Admin Command</p>
-                            <p style="font-size: 0.7rem; color: var(--text-secondary);">Enterprise Management</p>
-                        </div>
-                    </a>
-                    <a href="user-dashboard.html" class="portal-option active">
-                        <i class="fa-solid fa-user-doctor"></i>
-                        <div>
-                            <p style="font-weight: 800; font-size: 0.9rem;">Staff Portal</p>
-                            <p style="font-size: 0.7rem; color: var(--text-secondary);">Clinical Workspace</p>
-                        </div>
-                    </a>
-                    <a href="patient-dashboard.html" class="portal-option">
-                        <i class="fa-solid fa-hospital-user"></i>
-                        <div>
-                            <p style="font-weight: 800; font-size: 0.9rem;">Patient Portal</p>
-                            <p style="font-size: 0.7rem; color: var(--text-secondary);">Recovery Dashboard</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
             <div class="user-profile">
                 <div class="admin-info" style="text-align: right; margin-right: 15px;">
                     <span class="admin-name">Dr. Julian Moore</span>
@@ -76,9 +47,24 @@
                             <i class="fa-solid fa-user-group" style="margin-right: 10px;"></i> CONSULT TEAM
                         </button>
                     </div>
+                    </div>
                 </div>
                 <i class="fa-solid fa-stethoscope" style="position: absolute; right: 5%; bottom: -20px; font-size: 20rem; opacity: 0.05; pointer-events: none; color: white;"></i>
             </section>
+
+            <!-- Dynamic Notification Banner -->
+            <div id="notificationBanner" style="display: none; background: #eff6ff; border-left: 5px solid var(--primary); padding: 1.5rem 2rem; border-radius: 12px; margin-bottom: 2rem; align-items: center; justify-content: space-between; box-shadow: 0 4px 15px rgba(0,0,0,0.02);">
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">
+                        <i class="fa-solid fa-bell"></i>
+                    </div>
+                    <div>
+                        <h4 style="font-weight: 800; color: var(--text-primary); margin-bottom: 4px;">New Patient Request Received</h4>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary); font-weight: 500;">You have <span id="notifCount" style="font-weight: 800; color: var(--primary);">0</span> pending consultations requiring your attention.</p>
+                    </div>
+                </div>
+                <button class="btn-primary" style="padding: 10px 20px; font-size: 0.85rem; border-radius: 8px;" onclick="document.getElementById('notificationBanner').style.display='none'">DISMISS</button>
+            </div>
 
             <section class="stat-grid">
                 <div class="stat-card premium">
@@ -215,7 +201,23 @@
             }
         });
 
+        let previousCount = -1;
+
         streamSurgeries((surgeries) => {
+            if (previousCount !== -1 && surgeries.length > previousCount) {
+                showToast('ðŸ”” New Patient Appointment Received!', 'success');
+            }
+            previousCount = surgeries.length;
+
+            // Persistent Notification Banner logic
+            const pendingSurgeries = surgeries.filter(s => s.status?.toLowerCase() === 'queued' || s.status?.toLowerCase() === 'pending');
+            if(pendingSurgeries.length > 0) {
+                document.getElementById('notificationBanner').style.display = 'flex';
+                document.getElementById('notifCount').innerText = pendingSurgeries.length;
+            } else {
+                document.getElementById('notificationBanner').style.display = 'none';
+            }
+
             const tbody = document.getElementById('userScheduleBody');
             tbody.innerHTML = surgeries.map(s => `
                 <tr>
@@ -226,8 +228,8 @@
                             <span style="font-weight: 700;">${s.patientName}</span>
                         </div>
                     </td>
-                    <td><span class="ot-badge">${s.otId}</span></td>
-                    <td><div style="font-weight: 600; color: var(--text-secondary);">${s.procedure || 'Surgical Procedure'}</div></td>
+                    <td><span class="ot-badge">${s.otId || 'TBD'}</span></td>
+                    <td><div style="font-weight: 600; color: var(--text-secondary);">${s.procedure || 'Consultation'}</div></td>
                     <td><span class="status-badge ${s.status?.toLowerCase() || 'queued'}">${s.status || 'QUEUED'}</span></td>
                     <td>
                         <button class="btn-primary" style="padding: 10px 20px; font-size: 0.8rem; min-width: 120px; justify-content: center; border-radius: 8px;" 

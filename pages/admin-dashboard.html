@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -25,35 +25,6 @@
                 <a href="admin-analytics.html" class="header-link"><i class="fa-solid fa-chart-line"></i> Analytics</a>
             </nav>
 
-            <div class="portal-switcher">
-                <button class="portal-switch-btn">
-                    <i class="fa-solid fa-shuffle"></i> SWITCH PORTAL
-                </button>
-                <div class="portal-dropdown">
-                    <a href="admin-dashboard.html" class="portal-option active">
-                        <i class="fa-solid fa-user-shield"></i>
-                        <div>
-                            <p style="font-weight: 800; font-size: 0.9rem;">Admin Command</p>
-                            <p style="font-size: 0.7rem; color: var(--text-secondary);">Enterprise Management</p>
-                        </div>
-                    </a>
-                    <a href="user-dashboard.html" class="portal-option">
-                        <i class="fa-solid fa-user-doctor"></i>
-                        <div>
-                            <p style="font-weight: 800; font-size: 0.9rem;">Staff Portal</p>
-                            <p style="font-size: 0.7rem; color: var(--text-secondary);">Clinical Workspace</p>
-                        </div>
-                    </a>
-                    <a href="patient-dashboard.html" class="portal-option">
-                        <i class="fa-solid fa-hospital-user"></i>
-                        <div>
-                            <p style="font-weight: 800; font-size: 0.9rem;">Patient Portal</p>
-                            <p style="font-size: 0.7rem; color: var(--text-secondary);">Recovery Dashboard</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
             <div class="user-profile">
                 <div class="admin-info" style="text-align: right; margin-right: 15px;">
                     <span class="admin-name">Master Command</span>
@@ -70,9 +41,12 @@
                     <div class="badge-premium"><i class="fa-solid fa-shield-halved"></i> SYSTEM STABILIZED</div>
                     <h1>MediSync <span class="gradient-text">Institutional Command</span></h1>
                     <p>Enterprise-grade orchestration of surgical suites, clinical registries, and high-fidelity resource analytics.</p>
-                    <div class="action-row">
+                    <div class="action-row" style="display: flex; gap: 15px;">
                         <button class="btn-primary" onclick="window.location.href='admin-scheduler.html'">
                             <i class="fa-solid fa-plus-circle"></i> NEW PROCEDURE
+                        </button>
+                        <button class="btn-primary" style="background: var(--success);" onclick="window.location.href='user-dashboard.html'">
+                            <i class="fa-solid fa-user-nurse"></i> ACCESS STAFF PORTAL
                         </button>
                         <button class="btn-white" onclick="showToast('Initiating System Diagnostic...', 'info')">
                             <i class="fa-solid fa-microchip"></i> SYSTEM AUDIT
@@ -145,6 +119,7 @@
                                     <th>Lead Surgeon</th>
                                     <th>OT Number</th>
                                     <th>Status</th>
+                                    <th>Manage Appt</th>
                                 </tr>
                             </thead>
                             <tbody id="liveSurgeryTable">
@@ -190,7 +165,7 @@
 
     <script src="../js/main.js" type="module"></script>
     <script type="module">
-        import { streamSurgeries } from '../js/firebase-service.js';
+        import { streamSurgeries, deleteSurgery, updateSurgeryStatus } from '../js/firebase-service.js';
         import { showToast } from '../js/main.js';
 
         streamSurgeries((surgeries) => {
@@ -207,9 +182,27 @@
                     <td>Dr. ${s.leadSurgeon}</td>
                     <td><span class="ot-badge">${s.otId}</span></td>
                     <td><span class="status-badge ${s.status.toLowerCase().replace(' ', '-')}">${s.status}</span></td>
+                    <td>
+                        <div style="display: flex; gap: 8px;">
+                            <button class="btn-icon" style="color: var(--success);" onclick="window.updateStatus('${s.id}', '${s.status === 'COMPLETED' ? 'SCHEDULED' : 'COMPLETED'}')"><i class="fa-solid fa-circle-check"></i></button>
+                            <button class="btn-icon" style="color: var(--danger);" onclick="window.removeSurgery('${s.id}')"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </td>
                 </tr>
             `).join('');
         });
+
+        window.removeSurgery = async (id) => {
+            if(confirm('Terminate this surgical allocation?')) {
+                await deleteSurgery(id);
+                showToast('Allocation Terminated', 'info');
+            }
+        };
+
+        window.updateStatus = async (id, status) => {
+            await updateSurgeryStatus(id, status);
+            showToast('Appointment Status Updated', 'success');
+        };
     </script>
 </body>
 </html>

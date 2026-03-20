@@ -25,35 +25,6 @@
                 <a href="admin-analytics.html" class="header-link"><i class="fa-solid fa-chart-line"></i> Analytics</a>
             </nav>
 
-            <div class="portal-switcher">
-                <button class="portal-switch-btn">
-                    <i class="fa-solid fa-shuffle"></i> SWITCH PORTAL
-                </button>
-                <div class="portal-dropdown">
-                    <a href="admin-dashboard.html" class="portal-option active">
-                        <i class="fa-solid fa-user-shield"></i>
-                        <div>
-                            <p style="font-weight: 800; font-size: 0.9rem;">Admin Command</p>
-                            <p style="font-size: 0.7rem; color: var(--text-secondary);">Enterprise Management</p>
-                        </div>
-                    </a>
-                    <a href="user-dashboard.html" class="portal-option">
-                        <i class="fa-solid fa-user-doctor"></i>
-                        <div>
-                            <p style="font-weight: 800; font-size: 0.9rem;">Staff Portal</p>
-                            <p style="font-size: 0.7rem; color: var(--text-secondary);">Clinical Workspace</p>
-                        </div>
-                    </a>
-                    <a href="patient-dashboard.html" class="portal-option">
-                        <i class="fa-solid fa-hospital-user"></i>
-                        <div>
-                            <p style="font-weight: 800; font-size: 0.9rem;">Patient Portal</p>
-                            <p style="font-size: 0.7rem; color: var(--text-secondary);">Recovery Dashboard</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
             <div class="user-profile">
                 <div class="admin-info" style="text-align: right; margin-right: 15px;">
                     <span class="admin-name">Master Command</span>
@@ -75,49 +46,8 @@
                 </button>
             </header>
 
-            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 2.5rem; margin-bottom: 4rem;">
-                <!-- Room Cards -->
-                <div class="card-premium" style="padding: 2rem;">
-                    <div class="flex-between" style="margin-bottom: 2rem;">
-                        <div>
-                            <h3 style="font-size: 1.25rem;">OT-04-A</h3>
-                            <p style="font-size: 0.75rem; color: var(--primary); font-weight: 800;">NEURO / MODULAR</p>
-                        </div>
-                        <span class="status-badge occupied" style="background: hsla(0, 84%, 60%, 0.1); color: var(--danger);">OCCUPIED</span>
-                    </div>
-                    <div style="padding: 1.5rem; background: var(--bg-base); border-radius: 15px; margin-bottom: 2rem;">
-                        <div class="flex-between" style="margin-bottom: 10px;">
-                            <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">TEMPERATURE</span>
-                            <span style="font-weight: 800; color: var(--success);">21.4°C</span>
-                        </div>
-                        <div class="flex-between">
-                            <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">AIR PURITY</span>
-                            <span style="font-weight: 800; color: var(--primary);">99.2%</span>
-                        </div>
-                    </div>
-                    <button class="btn-white" style="width: 100%; justify-content: center;" onclick="location.href='admin-dashboard.html'">MONITOR FEED</button>
-                </div>
-
-                <div class="card-premium" style="padding: 2rem;">
-                    <div class="flex-between" style="margin-bottom: 2rem;">
-                        <div>
-                            <h3 style="font-size: 1.25rem;">OT-01-B</h3>
-                            <p style="font-size: 0.75rem; color: var(--primary); font-weight: 800;">CARDIAC SPECIALIZED</p>
-                        </div>
-                        <span class="status-badge scheduled">AVAILABLE</span>
-                    </div>
-                    <div style="padding: 1.5rem; background: var(--bg-base); border-radius: 15px; margin-bottom: 2rem;">
-                        <div class="flex-between" style="margin-bottom: 10px;">
-                            <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">TEMPERATURE</span>
-                            <span style="font-weight: 800; color: var(--success);">20.1°C</span>
-                        </div>
-                        <div class="flex-between">
-                            <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">HEPA FLOW</span>
-                            <span style="font-weight: 800; color: var(--primary);">98.8%</span>
-                        </div>
-                    </div>
-                    <button class="btn-primary" style="width: 100%; justify-content: center;" onclick="location.href='admin-scheduler.html'">BOOK SUITE</button>
-                </div>
+            <div id="otCardsContainer" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 2.5rem; margin-bottom: 4rem;">
+                <!-- Dynamic Cards -->
             </div>
 
             <section class="card-premium">
@@ -135,21 +65,8 @@
                                 <th>Maintenance</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td><span class="ot-badge">OT-04-A</span></td>
-                                <td>Neurosurgery</td>
-                                <td>L2, East Wing</td>
-                                <td><span class="status-badge occupied">OCCUPIED</span></td>
-                                <td><span class="badge badge-success">READY</span></td>
-                            </tr>
-                            <tr>
-                                <td><span class="ot-badge">OT-01-B</span></td>
-                                <td>Cardiac</td>
-                                <td>L3, North Wing</td>
-                                <td><span class="status-badge scheduled">AVAILABLE</span></td>
-                                <td><span class="badge badge-success">READY</span></td>
-                            </tr>
+                        <tbody id="otTableBody">
+                            <!-- Dynamic Table -->
                         </tbody>
                     </table>
                 </div>
@@ -158,5 +75,75 @@
     </div>
 
     <script src="../js/main.js" type="module"></script>
+    <script type="module">
+        import { streamSurgeries } from '../js/firebase-service.js';
+        
+        const HOSPITAL_ROOMS = [
+            { id: 'OT-01-A', spec: 'MODULAR', type: 'General', floor: 'L1, East Wing' },
+            { id: 'OT-02-B', spec: 'CARDIAC SPECIALIZED', type: 'Cardiac', floor: 'L2, South Wing' },
+            { id: 'OT-04-A', spec: 'NEURO / MODULAR', type: 'Neurosurgery', floor: 'L4, North Wing' }
+        ];
+
+        streamSurgeries((surgeries) => {
+            // Find currently active surgeries (SCHEDULED, PENDING, QUEUED)
+            const activeSurgeries = surgeries.filter(s => ['scheduled', 'pending', 'queued', 'in-progress'].includes(s.status?.toLowerCase()));
+            
+            const cardsContainer = document.getElementById('otCardsContainer');
+            const tableBody = document.getElementById('otTableBody');
+            
+            let cardsHTML = '';
+            let tableHTML = '';
+
+            HOSPITAL_ROOMS.forEach(room => {
+                // Check if this room is used in any active surgery
+                const occupyingSurgery = activeSurgeries.find(s => s.otId && s.otId.includes(room.id));
+                const isOccupied = !!occupyingSurgery;
+
+                const statusBadge = isOccupied ? 
+                    `<span class="status-badge occupied" style="background: hsla(0, 84%, 60%, 0.1); color: var(--danger);">OCCUPIED</span>` : 
+                    `<span class="status-badge scheduled">AVAILABLE</span>`;
+
+                const actionButton = isOccupied ? 
+                    `<button class="btn-white" style="width: 100%; justify-content: center;" onclick="location.href='admin-dashboard.html'">MONITOR FEED (${occupyingSurgery.patientName})</button>` :
+                    `<button class="btn-primary" style="width: 100%; justify-content: center;" onclick="location.href='admin-scheduler.html?room=${room.id}'">BOOK SUITE</button>`;
+
+                cardsHTML += `
+                <div class="card-premium" style="padding: 2rem; border-top: 5px solid ${isOccupied ? 'var(--danger)' : 'var(--success)'}">
+                    <div class="flex-between" style="margin-bottom: 2rem;">
+                        <div>
+                            <h3 style="font-size: 1.25rem;">${room.id}</h3>
+                            <p style="font-size: 0.75rem; color: var(--primary); font-weight: 800;">${room.spec}</p>
+                        </div>
+                        ${statusBadge}
+                    </div>
+                    <div style="padding: 1.5rem; background: var(--bg-base); border-radius: 15px; margin-bottom: 2rem;">
+                        <div class="flex-between" style="margin-bottom: 10px;">
+                            <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">TEMPERATURE</span>
+                            <span style="font-weight: 800; color: var(--success);">${isOccupied ? '21.4°C' : '20.1°C'}</span>
+                        </div>
+                        <div class="flex-between">
+                            <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">AIR PURITY</span>
+                            <span style="font-weight: 800; color: var(--primary);">${isOccupied ? '99.2%' : '98.8%'}</span>
+                        </div>
+                    </div>
+                    ${actionButton}
+                </div>
+                `;
+
+                tableHTML += `
+                <tr>
+                    <td><span class="ot-badge">${room.id}</span></td>
+                    <td>${room.type}</td>
+                    <td>${room.floor}</td>
+                    <td>${statusBadge}</td>
+                    <td><span class="badge ${isOccupied ? 'badge-warning' : 'badge-success'}">${isOccupied ? 'IN USE' : 'READY'}</span></td>
+                </tr>
+                `;
+            });
+
+            cardsContainer.innerHTML = cardsHTML;
+            tableBody.innerHTML = tableHTML;
+        });
+    </script>
 </body>
 </html>
